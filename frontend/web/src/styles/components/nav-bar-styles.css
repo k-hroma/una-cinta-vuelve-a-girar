@@ -1,0 +1,31 @@
+.nav-bar-container {
+  display: flex;
+  padding-left: 6rem;
+  padding-right: 6rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  justify-content: space-between;
+  background-color: var(--yellow);
+  font-size: var(--small-font-size);
+  letter-spacing: 7%;
+}
+
+.folder-txt-content {
+  display: flex;  
+  gap: 0.5rem;
+}
+
+.folder-icon {
+  width: 20.42px;
+  height: 18.8px;
+}
+
+.menu-content {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.play-icon {
+  width: 18.43px;
+  height: 18.43px;
+}
