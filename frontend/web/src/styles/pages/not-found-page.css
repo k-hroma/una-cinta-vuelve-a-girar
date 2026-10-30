@@ -34,7 +34,6 @@
   grid-row: 2 / span 2;
   color: var(--yellow);
   font-size: clamp(10rem, 28vw, 25rem);
-  letter-spacing: -0.08em;
   line-height: 0.72;
 }
 

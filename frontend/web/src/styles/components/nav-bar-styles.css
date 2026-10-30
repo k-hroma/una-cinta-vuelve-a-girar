@@ -41,3 +41,8 @@
   width: 18.43px;
   height: 18.43px;
 }
+
+.menu-content:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}

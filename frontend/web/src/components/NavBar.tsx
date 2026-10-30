@@ -1,20 +1,52 @@
-import { useState } from 'react';
-import { MenuOverlayComponent } from './MenuOverlayComponent';
+import { useEffect, useRef, useState } from 'react';
+import { MenuOverlay } from './MenuOverlay';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
 import navBarPlayIcon from '../assets/icons/nav-bar-play.svg';
 import navBarPauseIcon from '../assets/icons/nav-bar-pause.svg';
 import navBarRewindIcon from '../assets/icons/nav-bar-rewind.svg';
 import '../styles/components/nav-bar-styles.css';
 
-const NavBarComponent = () => {
+const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const icon = isMenuOpen
     ? navBarRewindIcon
     : isMenuHovered
       ? navBarPauseIcon
       : navBarPlayIcon;
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      return;
+    }
+
+    const menuButton = menuButtonRef.current;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+      menuButton?.focus();
+    };
+  }, [isMenuOpen]);
 
   return (
     <>
@@ -25,6 +57,7 @@ const NavBarComponent = () => {
         </div>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className="menu-content"
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
@@ -41,11 +74,9 @@ const NavBarComponent = () => {
         </button>
       </div>
 
-      {isMenuOpen && (
-        <MenuOverlayComponent onClose={() => setIsMenuOpen(false)} />
-      )}
+      {isMenuOpen ? <MenuOverlay onClose={closeMenu} /> : null}
     </>
   );
 };
 
-export { NavBarComponent };
+export { NavBar };

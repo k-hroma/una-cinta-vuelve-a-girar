@@ -1,9 +1,9 @@
-import { NavBarComponent } from "../components/NavBarComponent"
+import { NavBar } from "../components/NavBar"
 
 export function Header() {
   return (
     <header>
-      <NavBarComponent />
+      <NavBar />
     </header>
   )
 }

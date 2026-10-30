@@ -1,6 +1,6 @@
 import '../styles/components/hero-styles.css'
 
-const HeroComponent = () => {
+const Hero = () => {
   return (
     <div className="hero-content">
       <div className="hero-img-container">
@@ -10,4 +10,4 @@ const HeroComponent = () => {
   )
 };
 
-export { HeroComponent }
+export { Hero }

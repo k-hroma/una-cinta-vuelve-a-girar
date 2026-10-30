@@ -1,9 +1,9 @@
-import { HeroComponent } from "../../components/HeroComponent"
+import { Hero } from "../../components/Hero"
 
 export default function HomePage() {
   return (
     <section className="home-section">
-      <HeroComponent />
+      <Hero />
     </section>
   )
 };
