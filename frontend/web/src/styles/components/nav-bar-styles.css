@@ -1,9 +1,6 @@
 .nav-bar-container {
   display: flex;
-  padding-left: 6rem;
-  padding-right: 6rem;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding: 1.25rem 6rem;
   justify-content: space-between;
   align-items: center;
   background-color: var(--yellow);

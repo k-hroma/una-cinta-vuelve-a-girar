@@ -11,6 +11,8 @@ export type NavItem = {
   side: SiteSide;
   enabled: boolean;
   isSectionIntro?: boolean;
+  hasBullet?: boolean;
+  emphasis?: 'large';
 };
 
 export const SIDES: SiteSide[] = ['a', 'b', 'c'];
@@ -36,6 +38,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/la-pelicula',
     side: 'a',
     enabled: true,
+    emphasis: 'large',
   },
   {
     id: 'volver-a-ver',
@@ -43,6 +46,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/volver-a-ver-escuchar-preguntar',
     side: 'a',
     enabled: true,
+    hasBullet: true,
   },
   {
     id: 'la-cinta-y-el-soporte',
@@ -50,6 +54,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/la-cinta-y-el-soporte',
     side: 'a',
     enabled: true,
+    hasBullet: true,
   },
   {
     id: 'mario-celestino',
@@ -57,6 +62,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/mario-celestino-realizador',
     side: 'a',
     enabled: true,
+    hasBullet: true,
   },
   {
     id: 'glosario',
@@ -64,6 +70,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/glosario',
     side: 'a',
     enabled: true,
+    emphasis: 'large',
   },
   {
     id: 'cuantas-masacres',
@@ -71,6 +78,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/cuantas-masacres',
     side: 'a',
     enabled: true,
+    emphasis: 'large',
   },
   {
     id: 'con-el-cuerpo',
@@ -78,6 +86,7 @@ export const navItems: NavItem[] = [
     path: '/lado-a/con-el-cuerpo',
     side: 'a',
     enabled: true,
+    emphasis: 'large',
   },
   {
     id: 'el-mundo-en-el-que-ocurrio',

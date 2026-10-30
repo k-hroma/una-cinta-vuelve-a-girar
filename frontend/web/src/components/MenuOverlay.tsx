@@ -23,6 +23,15 @@ function MenuEntry({
   item: NavItem;
   onClose: () => void;
 }) {
+
+  if (item.isSectionIntro) {
+    return (
+      <span className="menu-section-intro">
+        {item.label}
+      </span>
+    );
+  }
+
   if (!item.enabled) {
     return (
       <span className="menu-link menu-link--disabled" aria-disabled="true">
@@ -36,9 +45,15 @@ function MenuEntry({
       to={item.path}
       end={item.path === HOME_PATH}
       onClick={onClose}
-      className={({ isActive }) =>
-        isActive ? 'menu-link menu-link--active' : 'menu-link'
-      }
+      className={({ isActive }) => {
+        const classes = ['menu-link'];
+
+        if (isActive) classes.push('menu-link--active');
+        if (item.emphasis === 'large') classes.push('menu-link--large');
+        if (item.hasBullet) classes.push('menu-link--bullet');
+
+        return classes.join(' ');
+      }}
     >
       {item.label}
     </NavLink>
@@ -89,10 +104,12 @@ const MenuOverlay = ({
           return (
             <section
               key={side}
-              className="menu-section"
+              className={`menu-section menu-section--${side}`}
               aria-labelledby={headingId}
             >
-              <h2 id={headingId}>{SIDE_LABELS[side]}</h2>
+              <p id={headingId} className="menu-section-label">
+                {SIDE_LABELS[side]}
+              </p>
               {intro ? <MenuEntry item={intro} onClose={onClose} /> : null}
 
               {pages.length > 0 ? (
