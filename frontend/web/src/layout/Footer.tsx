@@ -1,6 +1,6 @@
 import '../styles/layout/footer.css'
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer>
       <div className="footer-container">

@@ -3,10 +3,12 @@
 import { lazy, type ComponentType } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router';
 import { HOME_PATH, getEnabledContentRoutes } from '../config/navigation';
-import { RootLayout } from '../layout/RootLayout';
+import RootLayout from '../layout/RootLayout';
 import NotFoundPage from '../pages/public/NotFoundPage';
-import { RouteErrorPage } from '../pages/public/RouteErrorPage';
+import RouteErrorPage from '../pages/public/RouteErrorPage';
 
+
+// Lado A
 const HomePage = lazy(() => import('../pages/public/HomePage'));
 const LaPeliculaPage = lazy(() => import('../pages/public/LadoA/LaPeliculaPage'),);
 const VolverAVerPage = lazy(() => import('../pages/public/LadoA/VolverAVerPage'),);
@@ -15,6 +17,22 @@ const MarioCelestinoPage = lazy(() => import('../pages/public/LadoA/MarioCelesti
 const GlosarioPage = lazy(() => import('../pages/public/LadoA/GlosarioPage'));
 const CuantasMasacresPage = lazy(() => import('../pages/public/LadoA/CuantasMasacresPage'),);
 const ConElCuerpoPage = lazy(() => import('../pages/public/LadoA/ConElCuerpoPage'),);
+
+//Lado B
+
+const ElMundoEnElQueOcurrio = lazy(() => import('../pages/public/LadoB/ElMundoEnElQueOcurrio'));
+const LosHechos = lazy(() => import('../pages/public/LadoB/LosHechos'));
+const LoQueEscucharon = lazy(() => import('../pages/public/LadoB/LoQueEscucharon'));
+const Vigilar = lazy(() => import('../pages/public/LadoB/Vigilar'));
+const Organizarse = lazy(() => import('../pages/public/LadoB/Organizarse'));
+const LasPericias = lazy(() => import('../pages/public/LadoB/LasPericias'));
+const LaPrensa = lazy(() => import('../pages/public/LadoB/LaPrensa'));
+const LasMadres = lazy(() => import('../pages/public/LadoB/LasMadres'));
+const LosChicosMuertos = lazy(() => import('../pages/public/LadoB/LosChicosMuertos'));
+
+//Lado C
+
+const FabulacionesYCreacionesPersonales = lazy(() => import('../pages/public/LadoC/FabulacionesYCreacionesPersonales'));
 
 const lazyPages: Record<string, ComponentType> = {
   [HOME_PATH]: HomePage,
@@ -25,6 +43,19 @@ const lazyPages: Record<string, ComponentType> = {
   '/lado-a/glosario': GlosarioPage,
   '/lado-a/cuantas-masacres': CuantasMasacresPage,
   '/lado-a/con-el-cuerpo': ConElCuerpoPage,
+
+  '/lado-b/el-mundo-en-el-que-ocurrio': ElMundoEnElQueOcurrio,
+  '/lado-b/los-hechos': LosHechos,
+  '/lado-b/lo-que-escucharon-vieron-vivieron': LoQueEscucharon,
+  '/lado-b/vigilar': Vigilar,
+  '/lado-b/organizarse-cuidarse-luchar': Organizarse,
+  '/lado-b/las-pericias-y-la-justicia': LasPericias,
+  '/lado-b/la-prensa': LaPrensa,
+  '/lado-b/las-madres': LasMadres,
+  '/lado-b/los-chicos-muertos': LosChicosMuertos,
+
+  '/lado-c/fabulaciones-y-creaciones-personales': FabulacionesYCreacionesPersonales,
+
 };
 
 function pageElement(path: string) {

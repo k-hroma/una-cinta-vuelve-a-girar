@@ -1,3 +1,5 @@
+import ConstructionPage from "../ConstructionPage"
+
 export default function MarioCelestinoPage() {
-  return <h1>soy Mario Celestino</h1>
+  return <ConstructionPage />
 };

@@ -1,3 +1,5 @@
+import ConstructionPage from "../ConstructionPage"
+
 export default function LaPeliculaPage() {
-  return <h1>soy La Pelicula</h1>
+  return <ConstructionPage />
 };

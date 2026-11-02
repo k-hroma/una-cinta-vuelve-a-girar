@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { NavLink } from 'react-router';
 import { MenuOverlay } from './MenuOverlay';
+import { HOME_PATH } from '../config/navigation';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
 import navBarPlayIcon from '../assets/icons/nav-bar-play.svg';
 import navBarPauseIcon from '../assets/icons/nav-bar-pause.svg';
 import navBarRewindIcon from '../assets/icons/nav-bar-rewind.svg';
 import '../styles/components/nav-bar-styles.css';
 
-const NavBar = () => {
+export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -51,10 +53,12 @@ const NavBar = () => {
   return (
     <>
       <div className="nav-bar-container">
-        <div className="folder-txt-content">
+        <NavLink
+          to={HOME_PATH}
+          className="folder-txt-content">
           <img src={navBarFolderIcon} alt="" className="folder-icon" />
           <p>[ Una cinta vuelve a girar ]</p>
-        </div>
+        </NavLink>
 
         <button
           ref={menuButtonRef}
@@ -79,4 +83,3 @@ const NavBar = () => {
   );
 };
 
-export { NavBar };

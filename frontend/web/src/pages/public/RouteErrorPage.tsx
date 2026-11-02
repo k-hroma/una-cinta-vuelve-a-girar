@@ -1,7 +1,7 @@
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router';
-import '../../styles/pages/route-error-page.css';
+import '../../styles/pages/public/route-error-page.css';
 
-export function RouteErrorPage() {
+export default function RouteErrorPage() {
   const error = useRouteError();
 
   const title = isRouteErrorResponse(error)

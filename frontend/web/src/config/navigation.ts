@@ -13,6 +13,9 @@ export type NavItem = {
   isSectionIntro?: boolean;
   hasBullet?: boolean;
   emphasis?: 'large';
+  needMarginBottom?: boolean;
+  needMarginTop?: boolean;
+  needMarginRight?:boolean,
 };
 
 export const SIDES: SiteSide[] = ['a', 'b', 'c'];
@@ -63,6 +66,7 @@ export const navItems: NavItem[] = [
     side: 'a',
     enabled: true,
     hasBullet: true,
+    needMarginBottom:true,
   },
   {
     id: 'glosario',
@@ -93,7 +97,7 @@ export const navItems: NavItem[] = [
     label: 'El mundo en el que ocurrió',
     path: '/lado-b/el-mundo-en-el-que-ocurrio',
     side: 'b',
-    enabled: false,
+    enabled: true,
     isSectionIntro: true,
   },
   {
@@ -101,63 +105,65 @@ export const navItems: NavItem[] = [
     label: 'Los hechos',
     path: '/lado-b/los-hechos',
     side: 'b',
-    enabled: false,
+    enabled: true,
+    needMarginTop:true,
   },
   {
     id: 'lo-que-escucharon',
     label: 'Lo que escucharon, vieron, vivieron',
     path: '/lado-b/lo-que-escucharon-vieron-vivieron',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'vigilar',
     label: 'Vigilar',
     path: '/lado-b/vigilar',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'organizarse',
     label: 'Organizarse, cuidarse, luchar',
     path: '/lado-b/organizarse-cuidarse-luchar',
     side: 'b',
-    enabled: false,
+    enabled: true,
+    needMarginRight:true,
   },
   {
     id: 'las-pericias',
     label: 'Las pericias y la justicia',
     path: '/lado-b/las-pericias-y-la-justicia',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'la-prensa',
     label: 'La prensa',
     path: '/lado-b/la-prensa',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'las-madres',
     label: 'Las madres',
     path: '/lado-b/las-madres',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'los-chicos-muertos',
     label: 'Los chicos muertos',
     path: '/lado-b/los-chicos-muertos',
     side: 'b',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'fabulaciones',
     label: 'Fabulaciones y creaciones personales',
     path: '/lado-c/fabulaciones-y-creaciones-personales',
     side: 'c',
-    enabled: false,
+    enabled: true,
     isSectionIntro: true,
   },
 ];

@@ -1,3 +1,5 @@
+import ConstructionPage from "../ConstructionPage"
+
 export default function CuantasMasacresPage() {
-  return <h1>soy Cuantas Masacres</h1>
+  return <ConstructionPage />
 };

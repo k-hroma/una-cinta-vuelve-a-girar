@@ -2,12 +2,12 @@
 
 import { Suspense } from 'react';
 import { Link, Outlet, ScrollRestoration } from 'react-router';
-import { LoadingSpinner } from '../common/LoadingSpinner';
-import { Header } from './Header';
-import { Footer } from './Footer';
+import LoadingSpinner from '../common/LoadingSpinner';
+import Header from './Header';
+import Footer from './Footer';
 import { SectionErrorBoundary } from './SectionErrorBoundary';
 
-export function RootLayout() {
+export default function RootLayout() {
   return (
     <div>
       <SectionErrorBoundary

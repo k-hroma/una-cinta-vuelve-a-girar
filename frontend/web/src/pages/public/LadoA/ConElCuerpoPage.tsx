@@ -1,3 +1,5 @@
+import ConstructionPage from "../ConstructionPage"
+
 export default function ConElCuerpoPage() {
-  return <h1>soy Con el cuerpo</h1>
+  return <ConstructionPage />
 };

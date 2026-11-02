@@ -51,6 +51,9 @@ function MenuEntry({
         if (isActive) classes.push('menu-link--active');
         if (item.emphasis === 'large') classes.push('menu-link--large');
         if (item.hasBullet) classes.push('menu-link--bullet');
+        if (item.needMarginBottom) classes.push('menu-link--margin-bottom')
+        if (item.needMarginTop) classes.push('menu-link--margin-top')
+        if (item.needMarginRight) classes.push('menu-link--margin-right')
 
         return classes.join(' ');
       }}
@@ -78,10 +81,12 @@ const MenuOverlay = ({
       aria-label="Menú principal"
     >
       <div className="menu-overlay-header">
-        <div className="folder-txt-content">
+        <NavLink
+          to={HOME_PATH}
+          className="folder-txt-content">
           <img src={navBarFolderIcon} alt="" className="folder-icon" />
           <p>[ Una cinta vuelve a girar ]</p>
-        </div>
+        </NavLink>
 
         <button
           ref={closeButtonRef}

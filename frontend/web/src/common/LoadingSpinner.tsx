@@ -6,7 +6,7 @@ interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-export function LoadingSpinner({
+export default function LoadingSpinner({
   fullScreen = true,
   text = 'Cargando',
   size = 'medium',

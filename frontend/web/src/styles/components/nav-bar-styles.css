@@ -12,6 +12,14 @@
   display: flex;  
   gap: 0.5rem;
   align-items: center;
+
+  font-family: var(--font-bootzyTM);
+  color: var(--black);
+  font-size: var(--small-font-size);
+  font-weight: 400;
+  letter-spacing: 7%;
+  line-height: 100%;
+  text-decoration: none;
 }
 
 .folder-icon {
