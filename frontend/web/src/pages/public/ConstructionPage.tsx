@@ -6,7 +6,7 @@ import '../../styles/pages/public/construction-page.css';
 
 export default function ConstructionPage() {
   return (
-    <main className="construction-page">
+    <div className="construction-page">
       <div className="construction-page__content">
         <div className="construction-page__header">
           <span className="construction-page__eyebrow">
@@ -87,7 +87,7 @@ export default function ConstructionPage() {
           <span>FIN DE SEÑAL — POR AHORA</span>
         </footer>
       </div>
-    </main>
+    </div>
   );
 };
 

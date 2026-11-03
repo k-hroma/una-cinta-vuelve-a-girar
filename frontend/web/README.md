@@ -1,32 +1,56 @@
-# React + TypeScript + Vite
+# Una Cinta Vuelve A Girar
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Frontend del proyecto web **Una Cinta Vuelve A Girar**, una experiencia organizada alrededor de los lados A, B y C de una cinta. El sitio está en desarrollo: varias rutas de contenido muestran por ahora una página de construcción y la solución de backend o CMS todavía no fue definida.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js `20.19+` o `22.12+`, según los requisitos de Vite 8.
+- npm, para instalar las dependencias y ejecutar los scripts del proyecto.
 
-## React Compiler
+## Puesta en marcha
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Desde esta carpeta:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Vite muestra en la terminal la dirección local del servidor de desarrollo.
+
+## Comandos disponibles
+
+| Comando | Descripción |
+| --- | --- |
+| `npm run dev` | Inicia el servidor de desarrollo con recarga en caliente. |
+| `npm run lint` | Ejecuta Oxlint sobre el proyecto. |
+| `npm run typecheck` | Ejecuta el chequeo de TypeScript sin generar el build de producción. |
+| `npm run check` | Ejecuta Oxlint y el chequeo de TypeScript. |
+| `npm run build` | Ejecuta el chequeo de TypeScript y genera el build de producción en `dist/`. |
+| `npm run preview` | Sirve localmente el build generado para previsualizarlo. |
+
+El proyecto usa Oxlint como único linter. `.editorconfig` define la codificación y convenciones básicas de indentación y fin de línea para los editores; no hay un formatter automático configurado.
+
+## Estructura principal
+
+```text
+src/
+  app/          Entrada de la aplicación React
+  router/       Configuración del router y loaders de páginas
+  config/       Navegación y configuración del sitio
+  layout/       Estructura compartida, header, footer y errores
+  components/   Componentes de interfaz
+  common/       Componentes comunes
+  pages/public/ Páginas públicas, agrupadas por lado de la cinta
+  styles/       Estilos globales, de layout, componentes y páginas
+  assets/       Imágenes, iconos, texturas y fuentes
+public/         Archivos estáticos servidos sin procesar por Vite
+```
+
+Los paths y metadatos de navegación se definen en `src/config/navigation.ts`. Para agregar una ruta habilitada, agregá allí su entrada y asociá su `id` con el componente lazy correspondiente en `src/router/router.config.tsx`. El chequeo de tipos del build detecta asociaciones faltantes o sobrantes.
+
+## Estado del proyecto
+
+- Las rutas públicas están declaradas; varias páginas todavía reutilizan el placeholder `ConstructionPage`.
+- No hay integración de datos ni decisión de backend/CMS.
+- No hay un comando de tests configurado actualmente.

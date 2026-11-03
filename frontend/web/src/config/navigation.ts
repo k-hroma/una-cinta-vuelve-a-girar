@@ -26,7 +26,7 @@ export const SIDE_LABELS: Record<SiteSide, string> = {
   c: '[ Lado C ]',
 };
 
-export const navItems: NavItem[] = [
+export const navItems = [
   {
     id: 'home',
     label: 'Una cinta vuelve a girar',
@@ -166,16 +166,24 @@ export const navItems: NavItem[] = [
     enabled: true,
     isSectionIntro: true,
   },
-];
+] as const satisfies readonly NavItem[];
+
+export type EnabledNavItem = Extract<(typeof navItems)[number], { enabled: true }>;
 
 export function getSectionIntro(side: SiteSide): NavItem | undefined {
-  return navItems.find((item) => item.side === side && item.isSectionIntro);
+  return navItems.find(
+    (item) => item.side === side && 'isSectionIntro' in item && item.isSectionIntro,
+  );
 }
 
 export function getSectionPages(side: SiteSide): NavItem[] {
-  return navItems.filter((item) => item.side === side && !item.isSectionIntro);
+  return navItems.filter(
+    (item) => item.side === side && !('isSectionIntro' in item && item.isSectionIntro),
+  );
 }
 
-export function getEnabledContentRoutes(): NavItem[] {
-  return navItems.filter((item) => item.enabled && item.path !== HOME_PATH);
+export function getEnabledContentRoutes(): EnabledNavItem[] {
+  return navItems.filter(
+    (item): item is EnabledNavItem => item.enabled && item.path !== HOME_PATH,
+  );
 }

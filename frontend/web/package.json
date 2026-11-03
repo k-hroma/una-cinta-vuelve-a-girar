@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run typecheck && vite build",
     "lint": "oxlint",
+    "typecheck": "tsc -b --pretty false",
+    "check": "npm run lint && npm run typecheck",
     "preview": "vite preview"
   },
   "dependencies": {

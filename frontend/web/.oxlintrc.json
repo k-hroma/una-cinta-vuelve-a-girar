@@ -6,11 +6,11 @@
     "react/only-export-components": ["warn", { "allowConstantExport": true }]
   },
   "overrides": [
-  {
-    "files": ["src/router/router.config.tsx"],
-    "rules": {
-      "react/only-export-components": "off"
+    {
+      "files": ["src/router/router.config.tsx"],
+      "rules": {
+        "react/only-export-components": "off"
+      }
     }
-  }
-]
+  ]
 }
