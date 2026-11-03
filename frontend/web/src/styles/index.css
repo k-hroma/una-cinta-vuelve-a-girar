@@ -10,6 +10,7 @@
 :root {
   /* ─── Familias de fuente ──*/
   --font-bootzyTM: 'BootzyTM', sans-serif;
+  --font-apercuMono: 'ApercuMono', monospace;
 
   /*--- Tamaños de fuente ---*/
   --small-font-size: 1rem;

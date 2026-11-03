@@ -63,9 +63,9 @@ function MenuEntry({
   );
 }
 
-const MenuOverlay = ({
+export default function MenuOverlay({
   onClose,
-}: MenuOverlayProps) => {
+}: MenuOverlayProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -132,4 +132,4 @@ const MenuOverlay = ({
   );
 };
 
-export { MenuOverlay };
+

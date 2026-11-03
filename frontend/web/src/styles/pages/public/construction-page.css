@@ -98,7 +98,7 @@
   display: block;
   width: 3.5rem;
   aspect-ratio: 1;
-  flex-shrink: 0;
+  flex-shrink: -1;
   border: 0.45rem solid #121212;
   border-radius: 50%;
   background:

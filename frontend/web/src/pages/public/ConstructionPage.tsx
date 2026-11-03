@@ -8,7 +8,7 @@ export default function ConstructionPage() {
   return (
     <main className="construction-page">
       <div className="construction-page__content">
-        <header className="construction-page__header">
+        <div className="construction-page__header">
           <span className="construction-page__eyebrow">
             [ SEÑAL EN PROCESO ]
           </span>
@@ -19,7 +19,7 @@ export default function ConstructionPage() {
             aria-hidden="true"
             className="construction-page__rewind-icon"
           />
-        </header>
+        </div>
 
         <section
           className="construction-page__main"

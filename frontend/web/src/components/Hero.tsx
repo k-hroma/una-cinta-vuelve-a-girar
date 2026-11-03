@@ -39,21 +39,20 @@ export default function Hero() {
           <p className='hero-sub-title'>Budge pregunta, seguirá preguntando</p>
         </div>
         {portraits.map((portrait) => (
-          <figure
+          <div
             key={portrait.id}
             className={`hero-portrait ${portrait.className}`}
             tabIndex={0}
           >
+            <p className="hero-portrait-caption">
+              {portrait.text}
+            </p>
             <img
               src={portrait.src}
               alt={portrait.alt}
               className="hero-portrait-image"
             />
-
-            <figcaption className="hero-portrait-caption">
-              {portrait.text}
-            </figcaption>
-          </figure>
+          </div>
         ))}
       </div>
     </section>

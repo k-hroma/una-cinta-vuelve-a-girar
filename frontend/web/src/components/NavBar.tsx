@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
-import { MenuOverlay } from './MenuOverlay';
+
 import { HOME_PATH } from '../config/navigation';
+
+import MenuOverlay from './MenuOverlay';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
 import navBarPlayIcon from '../assets/icons/nav-bar-play.svg';
 import navBarPauseIcon from '../assets/icons/nav-bar-pause.svg';

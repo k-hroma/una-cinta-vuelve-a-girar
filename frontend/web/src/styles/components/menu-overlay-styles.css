@@ -2,9 +2,15 @@
   position: fixed;
   inset: 0;
   z-index: 100;
+
   display: flex;
   flex-direction: column;
-  overflow: auto;
+
+  
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+
   background-color: var(--yellow);
   color: var(--black);
 }
@@ -34,8 +40,11 @@
 .menu-overlay-content {
   display: grid;
   flex: 1;
+  min-height: 0;
+  min-width: 0;
+
   grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
+  grid-template-rows: minmax(0, 1fr) minmax(0, auto);
   grid-template-areas:
     "lado-a lado-b"
     "lado-a lado-c";
@@ -43,6 +52,7 @@
   row-gap: 2rem;
   padding: 1.5rem 6rem;
 
+  overflow-y: hidden; 
 }
 
 .menu-section--a {
@@ -117,19 +127,6 @@
   margin-right: 3rem ;
 }
 
-/*
-.menu-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-
-.menu-link--active {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-  */
-
 .menu-link--disabled {
   opacity: 0.45;
   cursor: default;
@@ -144,22 +141,4 @@
 .menu-link:focus-visible {
   outline: 2px solid var(--black);
   outline-offset: 4px;
-}
-
-@media (max-width: 900px) {
-  .menu-overlay-header {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .menu-overlay-content {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas:
-      "lado-a"
-      "lado-b"
-      "lado-c";
-    gap: 2.5rem;
-    padding: 1.5rem;
-  }
 }
