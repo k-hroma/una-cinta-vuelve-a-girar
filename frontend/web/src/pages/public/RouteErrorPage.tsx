@@ -1,4 +1,6 @@
-import { isRouteErrorResponse, Link, useRouteError } from 'react-router';
+import { isRouteErrorResponse, useRouteError } from 'react-router';
+import ActionLink from '../../components/ui/ActionLink';
+import Eyebrow from '../../components/ui/Eyebrow';
 import '../../styles/pages/public/route-error-page.css';
 
 export default function RouteErrorPage() {
@@ -15,19 +17,16 @@ export default function RouteErrorPage() {
   return (
     <section className="route-error" aria-labelledby="route-error-title">
       <div className="route-error__content">
-        <span className="route-error__eyebrow">[ Error ]</span>
+        <Eyebrow className="route-error__eyebrow">[ Error ]</Eyebrow>
 
         <div className="route-error__message">
           <h1 id="route-error-title">{title}</h1>
           <p>{detail}</p>
         </div>
 
-        <Link to="/" className="route-error__link">
-          <span>Volver al inicio</span>
-          <span className="route-error__arrow" aria-hidden="true">
-            →
-          </span>
-        </Link>
+        <ActionLink to="/" className="route-error__link">
+          Volver al inicio
+        </ActionLink>
       </div>
     </section>
   );

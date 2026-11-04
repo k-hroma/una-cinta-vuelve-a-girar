@@ -20,7 +20,7 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 6rem;
+  padding: var(--space-5) var(--space-24);
 
   font-size: var(--small-font-size);
   letter-spacing: 7%;
@@ -29,7 +29,7 @@
 .menu-section-label {
   align-self: flex-start;
   width: fit-content;
-  padding: 0.25rem;
+  padding: var(--space-1);
   font-family: var(--font-bootzyTM);
   letter-spacing: 7%;
   line-height: 100%;
@@ -48,9 +48,9 @@
   grid-template-areas:
     "lado-a lado-b"
     "lado-a lado-c";
-  column-gap: 3rem;
-  row-gap: 2rem;
-  padding: 1.5rem 6rem;
+  column-gap: var(--space-12);
+  row-gap: var(--space-8);
+  padding: var(--space-6) var(--space-24);
 
   overflow-y: hidden; 
 }
@@ -61,7 +61,7 @@
 
 .menu-section--b {
   grid-area: lado-b;
-  margin-right: 1rem;
+  margin-right: var(--space-4);
 }
 
 .menu-section--c {
@@ -71,7 +71,7 @@
 .menu-section {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .menu-section-intro {
@@ -81,7 +81,7 @@
   line-height: 100%;
   letter-spacing: 6%;
   text-decoration: underline;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
 }
 
 .menu-section p {
@@ -92,7 +92,7 @@
 .menu-section-pages {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .menu-link {
@@ -105,26 +105,26 @@
 
 .menu-link--large {
   font-size: var(--x-large-font-size);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 
 .menu-link--bullet {
   display: list-item;
   list-style-type: disc;
   list-style-position: outside;
-  margin-left: 1rem;
+  margin-left: var(--space-4);
 }
 
 .menu-link--margin-bottom {
-  margin-bottom: 0.5rem ;
+  margin-bottom: var(--space-2) ;
 } 
 
 .menu-link--margin-top {
-  margin-top: 0.5rem ;
+  margin-top: var(--space-2) ;
 }
 
 .menu-link--margin-right {
-  margin-right: 3rem ;
+  margin-right: var(--space-12) ;
 }
 
 .menu-link--disabled {
@@ -137,8 +137,11 @@
   text-decoration: none;
 }
 
-.menu-overlay .menu-content:focus-visible,
 .menu-link:focus-visible {
-  outline: 2px solid var(--black);
+  outline: none;
   outline-offset: 4px;
+}
+
+.nav-menu-button:focus:not(:focus-visible) {
+  outline: none;
 }

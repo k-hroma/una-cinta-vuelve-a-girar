@@ -4,9 +4,10 @@ import { lazy, type ComponentType } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router';
 import {
   HOME_PATH,
-  type EnabledNavItem,
-  getEnabledContentRoutes,
-  navItems,
+  derivePath,
+  type PublishedPage,
+  getPublishedContentRoutes,
+  getPublishedPages,
 } from '../config/navigation';
 import RootLayout from '../layout/RootLayout';
 import NotFoundPage from '../pages/public/NotFoundPage';
@@ -25,25 +26,22 @@ const ConElCuerpoPage = lazy(() => import('../pages/public/LadoA/ConElCuerpoPage
 
 //Lado B
 
-const ElMundoEnElQueOcurrio = lazy(() => import('../pages/public/LadoB/ElMundoEnElQueOcurrio'));
-const LosHechos = lazy(() => import('../pages/public/LadoB/LosHechos'));
-const LoQueEscucharon = lazy(() => import('../pages/public/LadoB/LoQueEscucharon'));
-const Vigilar = lazy(() => import('../pages/public/LadoB/Vigilar'));
-const Organizarse = lazy(() => import('../pages/public/LadoB/Organizarse'));
-const LasPericias = lazy(() => import('../pages/public/LadoB/LasPericias'));
-const LaPrensa = lazy(() => import('../pages/public/LadoB/LaPrensa'));
-const LasMadres = lazy(() => import('../pages/public/LadoB/LasMadres'));
-const LosChicosMuertos = lazy(() => import('../pages/public/LadoB/LosChicosMuertos'));
+const ElMundoEnElQueOcurrioPage = lazy(() => import('../pages/public/LadoB/ElMundoEnElQueOcurrioPage'));
+const LosHechosPage = lazy(() => import('../pages/public/LadoB/LosHechosPage'));
+const LoQueEscucharonPage = lazy(() => import('../pages/public/LadoB/LoQueEscucharonPage'));
+const VigilarPage = lazy(() => import('../pages/public/LadoB/VigilarPage'));
+const OrganizarsePage = lazy(() => import('../pages/public/LadoB/OrganizarsePage'));
+const LasPericiasPage = lazy(() => import('../pages/public/LadoB/LasPericiasPage'));
+const LaPrensaPage = lazy(() => import('../pages/public/LadoB/LaPrensaPage'));
+const LasMadresPage = lazy(() => import('../pages/public/LadoB/LasMadresPage'));
+const LosChicosMuertosPage = lazy(() => import('../pages/public/LadoB/LosChicosMuertosPage'));
 
 //Lado C
 
-const FabulacionesYCreacionesPersonales = lazy(() => import('../pages/public/LadoC/FabulacionesYCreacionesPersonales'));
+const FabulacionesYCreacionesPersonalesPage = lazy(() => import('../pages/public/LadoC/FabulacionesYCreacionesPersonalesPage'));
 
-type EnabledRouteId = EnabledNavItem['id'];
-
-// Al agregar una ruta habilitada, definí su path en navItems y asociá su id a un loader aquí.
-// El tipo detecta loaders faltantes o sobrantes al compilar; deshabilitar una ruta requiere quitar su loader.
-const lazyPagesById: Record<EnabledRouteId, ComponentType> = {
+// Al agregar una página publicada, asociá su id al loader correspondiente aquí.
+const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
   home: HomePage,
   'la-pelicula': LaPeliculaPage,
   'volver-a-ver': VolverAVerPage,
@@ -52,20 +50,20 @@ const lazyPagesById: Record<EnabledRouteId, ComponentType> = {
   glosario: GlosarioPage,
   'cuantas-masacres': CuantasMasacresPage,
   'con-el-cuerpo': ConElCuerpoPage,
-  'el-mundo-en-el-que-ocurrio': ElMundoEnElQueOcurrio,
-  'los-hechos': LosHechos,
-  'lo-que-escucharon': LoQueEscucharon,
-  vigilar: Vigilar,
-  organizarse: Organizarse,
-  'las-pericias': LasPericias,
-  'la-prensa': LaPrensa,
-  'las-madres': LasMadres,
-  'los-chicos-muertos': LosChicosMuertos,
-  fabulaciones: FabulacionesYCreacionesPersonales,
+  'el-mundo-en-el-que-ocurrio': ElMundoEnElQueOcurrioPage,
+  'los-hechos': LosHechosPage,
+  'lo-que-escucharon': LoQueEscucharonPage,
+  vigilar: VigilarPage,
+  organizarse: OrganizarsePage,
+  'las-pericias': LasPericiasPage,
+  'la-prensa': LaPrensaPage,
+  'las-madres': LasMadresPage,
+  'los-chicos-muertos': LosChicosMuertosPage,
+  fabulaciones: FabulacionesYCreacionesPersonalesPage,
 };
 
-function pageElement(id: EnabledRouteId) {
-  const Page = lazyPagesById[id];
+function pageElement(id: string) {
+  const Page = lazyPagesById[id as PublishedPage['id']];
 
   if (!Page) {
     throw new Error(`No hay página lazy registrada para el id ${id}`);
@@ -88,8 +86,8 @@ function nestedPath(path: string): { parent: string; child: string } | null {
 function buildSideRoutes(): RouteObject[] {
   const byParent = new Map<string, RouteObject[]>();
 
-  for (const item of getEnabledContentRoutes()) {
-    const nested = nestedPath(item.path);
+  for (const item of getPublishedContentRoutes()) {
+    const nested = nestedPath(derivePath(item));
 
     if (!nested) {
       continue;
@@ -118,23 +116,21 @@ function buildSideRoutes(): RouteObject[] {
   }));
 }
 
-const enabledRoutes = navItems.filter(
-  (item): item is EnabledNavItem => item.enabled,
-);
+const publishedPages = getPublishedPages();
 
-for (const item of enabledRoutes) {
-  if (!lazyPagesById[item.id]) {
-    throw new Error(`Falta el loader de página para ${item.id} (${item.path})`);
+for (const item of publishedPages) {
+  if (!(item.id in lazyPagesById)) {
+    throw new Error(`Falta el loader de página para ${item.id} (${derivePath(item)})`);
   }
 }
 
 for (const id of Object.keys(lazyPagesById)) {
-  if (!enabledRoutes.some((item) => item.id === id)) {
-    throw new Error(`El loader ${id} no corresponde a una ruta habilitada`);
+  if (!publishedPages.some((item) => item.id === id)) {
+    throw new Error(`El loader ${id} no corresponde a una página publicada`);
   }
 }
 
-const homeRoute = enabledRoutes.find((item) => item.path === HOME_PATH);
+const homeRoute = publishedPages.find((item) => derivePath(item) === HOME_PATH);
 
 if (!homeRoute) {
   throw new Error(`No hay una ruta de inicio habilitada para ${HOME_PATH}`);

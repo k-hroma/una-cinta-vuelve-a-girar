@@ -1,11 +1,12 @@
-import { Link } from 'react-router';
+import ActionLink from '../../components/ui/ActionLink';
+import Eyebrow from '../../components/ui/Eyebrow';
 import '../../styles/pages/public/not-found-page.css';
 
 export default function NotFoundPage() {
   return (
     <section className="not-found" aria-labelledby="not-found-title">
       <div className="not-found__content">
-        <span className="not-found__eyebrow">[ Error 404 ]</span>
+        <Eyebrow className="not-found__eyebrow">[ Error 404 ]</Eyebrow>
 
         <span className="not-found__code" aria-hidden="true">
           404
@@ -19,12 +20,9 @@ export default function NotFoundPage() {
           </p>
         </div>
 
-        <Link to="/" className="not-found__link">
-          <span>Volver al inicio</span>
-          <span className="not-found__arrow" aria-hidden="true">
-            →
-          </span>
-        </Link>
+        <ActionLink to="/" className="not-found__link">
+          Volver al inicio
+        </ActionLink>
 
         <span className="not-found__footer">
           NO HAY NADA POR AQUÍ. POR AHORA.

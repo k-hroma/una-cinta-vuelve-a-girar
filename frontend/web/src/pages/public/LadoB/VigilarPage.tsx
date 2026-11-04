@@ -1,5 +1,5 @@
 import ConstructionPage from "../ConstructionPage"
 
-export default function LaPrensa() {
+export default function VigilarPage() {
   return <ConstructionPage />
 };

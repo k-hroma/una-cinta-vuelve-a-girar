@@ -19,20 +19,47 @@
   --x-large-font-size: 6rem;
   --xx-super-large-font-size: 11.875rem;
 
+  /* Escala fluida disponible para adopción progresiva */
+  --fluid-font-size-small: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fluid-font-size-medium: clamp(1.125rem, 0.95rem + 0.8vw, 1.6875rem);
+  --fluid-font-size-large: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+
+  /* Escala de espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* Anchos compartidos de contenido */
+  --content-max-width: 92rem;
+  --content-reading-width: 46rem;
+
   /* ─── Colores ──*/
   --yellow: #FFED25;
   --beige: #f4ece0;
   --black: #121212;
   --soft-black:#242424;
 
+  /*
+   * Breakpoints actuales: 900px, 760px y 480px.
+   * Se mantienen literales en @media: CSS no permite usar custom properties
+   * como valores de condiciones media sin transformación de build.
+   */
 }
 
 #root {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
-
+  min-height: 100vh; 
+  min-height: 100dvh;
 }
 
 body {

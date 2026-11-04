@@ -1,21 +1,32 @@
-/*navigation.ts determina qué páginas están habilitadas y cuáles son sus metadatos.*/
-
 export const HOME_PATH = '/' as const;
 
 export type SiteSide = 'a' | 'b' | 'c';
+export type PublicationStatus = 'published' | 'draft';
+export type PageKind = 'intro' | 'page';
 
-export type NavItem = {
+export type PageModel = {
   id: string;
-  label: string;
-  path: string;
-  side: SiteSide;
-  enabled: boolean;
-  isSectionIntro?: boolean;
-  hasBullet?: boolean;
-  emphasis?: 'large';
-  needMarginBottom?: boolean;
-  needMarginTop?: boolean;
-  needMarginRight?:boolean,
+  title: string;
+  section: SiteSide | null;
+  menuSection?: SiteSide;
+  slug: string;
+  publicationStatus: PublicationStatus;
+  kind: PageKind;
+  nav?: {
+    emphasis?: 'large';
+    hasBullet?: boolean;
+    needMargin?: {
+      top?: boolean;
+      bottom?: boolean;
+      right?: boolean;
+    };
+  };
+};
+
+export const SECTION_SEGMENTS: Record<SiteSide, string> = {
+  a: 'lado-a',
+  b: 'lado-b',
+  c: 'lado-c',
 };
 
 export const SIDES: SiteSide[] = ['a', 'b', 'c'];
@@ -26,164 +37,198 @@ export const SIDE_LABELS: Record<SiteSide, string> = {
   c: '[ Lado C ]',
 };
 
-export const navItems = [
+export const pageModels = [
   {
     id: 'home',
-    label: 'Una cinta vuelve a girar',
-    path: HOME_PATH,
-    side: 'a',
-    enabled: true,
-    isSectionIntro: true,
+    title: 'Una cinta vuelve a girar',
+    section: null,
+    menuSection: 'a',
+    slug: '',
+    publicationStatus: 'published',
+    kind: 'intro',
   },
   {
     id: 'la-pelicula',
-    label: 'La película',
-    path: '/lado-a/la-pelicula',
-    side: 'a',
-    enabled: true,
-    emphasis: 'large',
+    title: 'La película',
+    section: 'a',
+    slug: 'la-pelicula',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { emphasis: 'large' },
   },
   {
     id: 'volver-a-ver',
-    label: 'Volver a ver, escuchar, preguntar',
-    path: '/lado-a/volver-a-ver-escuchar-preguntar',
-    side: 'a',
-    enabled: true,
-    hasBullet: true,
+    title: 'Volver a ver, escuchar, preguntar',
+    section: 'a',
+    slug: 'volver-a-ver-escuchar-preguntar',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { hasBullet: true },
   },
   {
     id: 'la-cinta-y-el-soporte',
-    label: 'La cinta y el soporte',
-    path: '/lado-a/la-cinta-y-el-soporte',
-    side: 'a',
-    enabled: true,
-    hasBullet: true,
+    title: 'La cinta y el soporte',
+    section: 'a',
+    slug: 'la-cinta-y-el-soporte',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { hasBullet: true },
   },
   {
     id: 'mario-celestino',
-    label: 'Mario Celestino, realizador',
-    path: '/lado-a/mario-celestino-realizador',
-    side: 'a',
-    enabled: true,
-    hasBullet: true,
-    needMarginBottom:true,
+    title: 'Mario Celestino, realizador',
+    section: 'a',
+    slug: 'mario-celestino-realizador',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { hasBullet: true, needMargin: { bottom: true } },
   },
   {
     id: 'glosario',
-    label: 'Glosario',
-    path: '/lado-a/glosario',
-    side: 'a',
-    enabled: true,
-    emphasis: 'large',
+    title: 'Glosario',
+    section: 'a',
+    slug: 'glosario',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { emphasis: 'large' },
   },
   {
     id: 'cuantas-masacres',
-    label: 'Cuántas masacres',
-    path: '/lado-a/cuantas-masacres',
-    side: 'a',
-    enabled: true,
-    emphasis: 'large',
+    title: 'Cuántas masacres',
+    section: 'a',
+    slug: 'cuantas-masacres',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { emphasis: 'large' },
   },
   {
     id: 'con-el-cuerpo',
-    label: 'Con el cuerpo',
-    path: '/lado-a/con-el-cuerpo',
-    side: 'a',
-    enabled: true,
-    emphasis: 'large',
+    title: 'Con el cuerpo',
+    section: 'a',
+    slug: 'con-el-cuerpo',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { emphasis: 'large' },
   },
   {
     id: 'el-mundo-en-el-que-ocurrio',
-    label: 'El mundo en el que ocurrió',
-    path: '/lado-b/el-mundo-en-el-que-ocurrio',
-    side: 'b',
-    enabled: true,
-    isSectionIntro: true,
+    title: 'El mundo en el que ocurrió',
+    section: 'b',
+    slug: 'el-mundo-en-el-que-ocurrio',
+    publicationStatus: 'published',
+    kind: 'intro',
   },
   {
     id: 'los-hechos',
-    label: 'Los hechos',
-    path: '/lado-b/los-hechos',
-    side: 'b',
-    enabled: true,
-    needMarginTop:true,
+    title: 'Los hechos',
+    section: 'b',
+    slug: 'los-hechos',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { needMargin: { top: true } },
   },
   {
     id: 'lo-que-escucharon',
-    label: 'Lo que escucharon, vieron, vivieron',
-    path: '/lado-b/lo-que-escucharon-vieron-vivieron',
-    side: 'b',
-    enabled: true,
+    title: 'Lo que escucharon, vieron, vivieron',
+    section: 'b',
+    slug: 'lo-que-escucharon-vieron-vivieron',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'vigilar',
-    label: 'Vigilar',
-    path: '/lado-b/vigilar',
-    side: 'b',
-    enabled: true,
+    title: 'Vigilar',
+    section: 'b',
+    slug: 'vigilar',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'organizarse',
-    label: 'Organizarse, cuidarse, luchar',
-    path: '/lado-b/organizarse-cuidarse-luchar',
-    side: 'b',
-    enabled: true,
-    needMarginRight:true,
+    title: 'Organizarse, cuidarse, luchar',
+    section: 'b',
+    slug: 'organizarse-cuidarse-luchar',
+    publicationStatus: 'published',
+    kind: 'page',
+    nav: { needMargin: { right: true } },
   },
   {
     id: 'las-pericias',
-    label: 'Las pericias y la justicia',
-    path: '/lado-b/las-pericias-y-la-justicia',
-    side: 'b',
-    enabled: true,
+    title: 'Las pericias y la justicia',
+    section: 'b',
+    slug: 'las-pericias-y-la-justicia',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'la-prensa',
-    label: 'La prensa',
-    path: '/lado-b/la-prensa',
-    side: 'b',
-    enabled: true,
+    title: 'La prensa',
+    section: 'b',
+    slug: 'la-prensa',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'las-madres',
-    label: 'Las madres',
-    path: '/lado-b/las-madres',
-    side: 'b',
-    enabled: true,
+    title: 'Las madres',
+    section: 'b',
+    slug: 'las-madres',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'los-chicos-muertos',
-    label: 'Los chicos muertos',
-    path: '/lado-b/los-chicos-muertos',
-    side: 'b',
-    enabled: true,
+    title: 'Los chicos muertos',
+    section: 'b',
+    slug: 'los-chicos-muertos',
+    publicationStatus: 'published',
+    kind: 'page',
   },
   {
     id: 'fabulaciones',
-    label: 'Fabulaciones y creaciones personales',
-    path: '/lado-c/fabulaciones-y-creaciones-personales',
-    side: 'c',
-    enabled: true,
-    isSectionIntro: true,
+    title: 'Fabulaciones y creaciones personales',
+    section: 'c',
+    slug: 'fabulaciones-y-creaciones-personales',
+    publicationStatus: 'published',
+    kind: 'intro',
   },
-] as const satisfies readonly NavItem[];
+] as const satisfies readonly PageModel[];
 
-export type EnabledNavItem = Extract<(typeof navItems)[number], { enabled: true }>;
+export type PublishedPage = Extract<
+  (typeof pageModels)[number],
+  { publicationStatus: 'published' }
+>;
 
-export function getSectionIntro(side: SiteSide): NavItem | undefined {
-  return navItems.find(
-    (item) => item.side === side && 'isSectionIntro' in item && item.isSectionIntro,
+export function derivePath(
+  page: Pick<PageModel, 'section' | 'slug'>,
+): string {
+  if (page.section === null) return HOME_PATH;
+  return `/${SECTION_SEGMENTS[page.section]}/${page.slug}`;
+}
+
+export function getPublishedPages(): PageModel[] {
+  return pageModels.filter((page) => page.publicationStatus === 'published');
+}
+
+export function getSectionIntro(side: SiteSide): PageModel | undefined {
+  const publishedPages = getPublishedPages();
+  const sectionIntro = publishedPages.find(
+    (page) => page.section === side && page.kind === 'intro',
+  );
+
+  if (sectionIntro) return sectionIntro;
+
+  return publishedPages.find((page) => page.menuSection === side);
+}
+
+export function getSectionPages(side: SiteSide): PageModel[] {
+  return getPublishedPages().filter(
+    (page) => page.section === side && page.kind === 'page',
   );
 }
 
-export function getSectionPages(side: SiteSide): NavItem[] {
-  return navItems.filter(
-    (item) => item.side === side && !('isSectionIntro' in item && item.isSectionIntro),
-  );
-}
-
-export function getEnabledContentRoutes(): EnabledNavItem[] {
-  return navItems.filter(
-    (item): item is EnabledNavItem => item.enabled && item.path !== HOME_PATH,
+export function getPublishedContentRoutes(): PageModel[] {
+  return getPublishedPages().filter(
+    (page) => derivePath(page) !== HOME_PATH,
   );
 }

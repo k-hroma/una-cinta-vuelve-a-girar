@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 
 import { HOME_PATH } from '../config/navigation';
 
+import IconTextButton from './ui/IconTextButton';
 import MenuOverlay from './MenuOverlay';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
 import navBarPlayIcon from '../assets/icons/nav-bar-play.svg';
@@ -62,22 +63,21 @@ export default function NavBar() {
           <p>[ Una cinta vuelve a girar ]</p>
         </NavLink>
 
-        <button
+        <IconTextButton
           ref={menuButtonRef}
           type="button"
-          className="menu-content"
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={isMenuOpen}
           aria-controls="site-menu"
+          iconSrc={icon}
           onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
           onMouseEnter={() => setIsMenuHovered(true)}
           onMouseLeave={() => setIsMenuHovered(false)}
           onFocus={() => setIsMenuHovered(true)}
           onBlur={() => setIsMenuHovered(false)}
         >
-          <span>{isMenuOpen ? 'Cerrar' : 'Menú'}</span>
-          <img src={icon} alt="" className="play-icon" />
-        </button>
+          {isMenuOpen ? 'Cerrar' : 'Menú'}
+        </IconTextButton>
       </div>
 
       {isMenuOpen ? <MenuOverlay onClose={closeMenu} /> : null}

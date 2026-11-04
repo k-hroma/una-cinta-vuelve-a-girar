@@ -1,5 +1,5 @@
 import ConstructionPage from "../ConstructionPage"
 
-export default function LosHechos() {
+export default function LoQueEscucharonPage() {
   return <ConstructionPage />
 };

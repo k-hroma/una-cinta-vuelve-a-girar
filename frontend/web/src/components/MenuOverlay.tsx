@@ -1,14 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router';
+import IconTextButton from './ui/IconTextButton';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
 import navBarRewindIcon from '../assets/icons/nav-bar-rewind.svg';
 import {
   HOME_PATH,
   SIDE_LABELS,
   SIDES,
+  derivePath,
   getSectionIntro,
   getSectionPages,
-  type NavItem,
+  type PageModel,
 } from '../config/navigation';
 import '../styles/components/menu-overlay-styles.css';
 
@@ -20,45 +22,38 @@ function MenuEntry({
   item,
   onClose,
 }: {
-  item: NavItem;
+  item: PageModel;
   onClose: () => void;
 }) {
-
-  if (item.isSectionIntro) {
+  if (item.kind === 'intro') {
     return (
       <span className="menu-section-intro">
-        {item.label}
+        {item.title}
       </span>
     );
   }
 
-  if (!item.enabled) {
-    return (
-      <span className="menu-link menu-link--disabled" aria-disabled="true">
-        {item.label}
-      </span>
-    );
-  }
+  const path = derivePath(item);
 
   return (
     <NavLink
-      to={item.path}
-      end={item.path === HOME_PATH}
+      to={path}
+      end={path === HOME_PATH}
       onClick={onClose}
       className={({ isActive }) => {
         const classes = ['menu-link'];
 
         if (isActive) classes.push('menu-link--active');
-        if (item.emphasis === 'large') classes.push('menu-link--large');
-        if (item.hasBullet) classes.push('menu-link--bullet');
-        if (item.needMarginBottom) classes.push('menu-link--margin-bottom')
-        if (item.needMarginTop) classes.push('menu-link--margin-top')
-        if (item.needMarginRight) classes.push('menu-link--margin-right')
+        if (item.nav?.emphasis === 'large') classes.push('menu-link--large');
+        if (item.nav?.hasBullet) classes.push('menu-link--bullet');
+        if (item.nav?.needMargin?.bottom) classes.push('menu-link--margin-bottom')
+        if (item.nav?.needMargin?.top) classes.push('menu-link--margin-top')
+        if (item.nav?.needMargin?.right) classes.push('menu-link--margin-right')
 
         return classes.join(' ');
       }}
     >
-      {item.label}
+      {item.title}
     </NavLink>
   );
 }
@@ -66,6 +61,7 @@ function MenuEntry({
 export default function MenuOverlay({
   onClose,
 }: MenuOverlayProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -74,11 +70,38 @@ export default function MenuOverlay({
 
   return (
     <div
+      ref={dialogRef}
       id="site-menu"
       className="menu-overlay"
       role="dialog"
       aria-modal="true"
       aria-label="Menú principal"
+      onKeyDown={(event) => {
+        if (event.key !== 'Tab') return;
+
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        const focusableElements = dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (focusableElements.length === 0) {
+          event.preventDefault();
+          return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }}
     >
       <div className="menu-overlay-header">
         <NavLink
@@ -88,16 +111,15 @@ export default function MenuOverlay({
           <p>[ Una cinta vuelve a girar ]</p>
         </NavLink>
 
-        <button
+        <IconTextButton
           ref={closeButtonRef}
           type="button"
-          className="menu-content"
           onClick={onClose}
           aria-label="Cerrar menú"
+          iconSrc={navBarRewindIcon}
         >
-          <span>Cerrar</span>
-          <img src={navBarRewindIcon} alt="" className="play-icon" />
-        </button>
+          Cerrar
+        </IconTextButton>
       </div>
 
       <nav className="menu-overlay-content" aria-label="Secciones del sitio">

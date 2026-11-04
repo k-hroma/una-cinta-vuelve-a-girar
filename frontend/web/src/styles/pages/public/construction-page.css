@@ -2,16 +2,16 @@
 .construction-page {
   min-height: 100%;
   padding: 3rem 6rem;
-  background-color: #f4ece0;
-  color: #121212;
-  font-family: var(--font-bootzy, 'BootzyTM', sans-serif);
+  background-color: var(--beige);
+  color: var(--black);
+  font-family: var(--font-bootzyTM);
 }
 
 .construction-page__content {
   display: flex;
   flex-direction: column;
   min-height: 65vh;
-  border: 1px solid #121212;
+  border: 1px solid var(--black);
 }
 
 /* Encabezado */
@@ -20,18 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid #121212;
-}
-
-.construction-page__eyebrow {
-  display: inline-block;
-  padding: 0.2rem 0.35rem;
-  background-color: #121212;
-  color: #ffed25;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--black);
 }
 
 .construction-page__rewind-icon {
@@ -46,9 +37,9 @@
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
-  gap: 4rem;
+  gap: var(--space-16);
   flex: 1;
-  padding: 4rem;
+  padding: var(--space-16);
 }
 
 /* Casete ilustrado con CSS */
@@ -57,30 +48,30 @@
   width: 100%;
   max-width: 24rem;
   justify-self: center;
-  padding: 0.75rem;
-  background-color: #121212;
-  border: 1px solid #121212;
-  box-shadow: 0.6rem 0.6rem 0 #ffed25;
+  padding: var(--space-3);
+  background-color: var(--black);
+  border: 1px solid var(--black);
+  box-shadow: 0.6rem 0.6rem 0 var(--yellow);
   transform: rotate(-3deg);
 }
 
 .construction-page__cassette-label {
-  padding: 1.25rem;
-  background-color: #f4ece0;
-  color: #121212;
+  padding: var(--space-5);
+  background-color: var(--beige);
+  color: var(--black);
 }
 
 .construction-page__cassette-side {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
 }
 
 .construction-page__cassette-title {
   display: block;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #121212;
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--black);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 700;
   line-height: 1;
@@ -90,7 +81,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--space-4);
   padding: 1.5rem 0 0.5rem;
 }
 
@@ -99,34 +90,34 @@
   width: 3.5rem;
   aspect-ratio: 1;
   flex-shrink: -1;
-  border: 0.45rem solid #121212;
+  border: 0.45rem solid var(--black);
   border-radius: 50%;
   background:
     radial-gradient(
       circle,
-      #f4ece0 0 12%,
-      #121212 13% 25%,
+      var(--beige) 0 12%,
+      var(--black) 13% 25%,
       transparent 26%
     ),
     repeating-conic-gradient(
       from 0deg,
-      #242424 0deg 12deg,
-      #f4ece0 13deg 17deg
+      var(--soft-black) 0deg 12deg,
+      var(--beige) 13deg 17deg
     );
 }
 
 .construction-page__tape-line {
   height: 2px;
   flex: 1;
-  background-color: #121212;
+  background-color: var(--black);
 }
 
 .construction-page__cassette-bottom {
   display: flex;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: var(--space-2);
   padding: 0.75rem 0.25rem 0.15rem;
-  color: #f4ece0;
+  color: var(--beige);
   font-size: 0.65rem;
   letter-spacing: 0.08em;
 }
@@ -138,14 +129,14 @@
 }
 
 .construction-page__overline {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-5);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
 }
 
 .construction-page__title {
   max-width: 12ch;
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--space-5);
   font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 400;
   line-height: 0.98;
@@ -154,7 +145,7 @@
 
 .construction-page__description {
   max-width: 35ch;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -164,9 +155,9 @@
 .construction-page__home-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
   padding: 0.55rem 0;
-  border-bottom: 1px solid #121212;
+  border-bottom: 1px solid var(--black);
   color: inherit;
   font-size: 0.95rem;
   text-decoration: none;
@@ -181,8 +172,8 @@
 }
 
 .construction-page__home-link:hover {
-  border-color: #242424;
-  color: #242424;
+  border-color: var(--soft-black);
+  color: var(--soft-black);
 }
 
 .construction-page__home-link:hover .construction-page__link-arrow {
@@ -190,7 +181,7 @@
 }
 
 .construction-page__home-link:focus-visible {
-  outline: 2px solid #121212;
+  outline: 2px solid var(--black);
   outline-offset: 5px;
 }
 
@@ -199,9 +190,9 @@
 .construction-page__footer {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-top: 1px solid #121212;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--black);
   font-size: 0.65rem;
   letter-spacing: 0.06em;
 }

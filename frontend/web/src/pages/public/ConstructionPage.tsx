@@ -1,5 +1,6 @@
 
 import { NavLink } from 'react-router';
+import Eyebrow from '../../components/ui/Eyebrow';
 import { HOME_PATH } from '../../config/navigation';
 import navBarRewindIcon from '../../assets/icons/nav-bar-rewind.svg';
 import '../../styles/pages/public/construction-page.css';
@@ -9,9 +10,9 @@ export default function ConstructionPage() {
     <div className="construction-page">
       <div className="construction-page__content">
         <div className="construction-page__header">
-          <span className="construction-page__eyebrow">
+          <Eyebrow variant="inverse" className="construction-page__eyebrow">
             [ SEÑAL EN PROCESO ]
-          </span>
+          </Eyebrow>
 
           <img
             src={navBarRewindIcon}

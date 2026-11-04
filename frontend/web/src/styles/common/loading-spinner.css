@@ -17,14 +17,14 @@
 
 .loading-container:not(.loading-container--fullscreen) {
   min-height: 6rem;
-  padding: 2rem 1.5rem;
+  padding: var(--space-8) var(--space-6);
 }
 
 .loading-spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .loading-spinner--small {

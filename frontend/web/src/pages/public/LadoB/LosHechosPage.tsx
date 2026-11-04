@@ -1,4 +1,5 @@
 import ConstructionPage from "../ConstructionPage"
-export default function FabulacionesYCreacionesPersonales() {
+
+export default function LosHechosPage() {
   return <ConstructionPage />
 };
