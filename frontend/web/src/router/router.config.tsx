@@ -1,4 +1,7 @@
-/*router.config.tsx conecta los paths con sus componentes y construye las rutas.*/
+/*
+Rol: construye el árbol de rutas a partir de navigation.ts y lo convierte en un router.
+Exporta: routes (array de RouteObject) y router (resultado de createBrowserRouter).
+*/
 
 import { lazy, type ComponentType } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router';
@@ -13,6 +16,8 @@ import RootLayout from '../layout/RootLayout';
 import NotFoundPage from '../pages/public/NotFoundPage';
 import RouteErrorPage from '../pages/public/RouteErrorPage';
 
+// lazy(() => import(...)) hace code splitting: el código de cada página se descarga recién cuando se la visita. 
+// Mientras tanto, el <Suspense> de RootLayout muestra el spinner.
 
 // Lado A
 const HomePage = lazy(() => import('../pages/public/HomePage'));
@@ -26,7 +31,7 @@ const ConElCuerpoPage = lazy(() => import('../pages/public/LadoA/ConElCuerpoPage
 
 //Lado B
 
-const ElMundoEnElQueOcurrioPage = lazy(() => import('../pages/public/LadoB/ElMundoEnElQueOcurrioPage'));
+
 const LosHechosPage = lazy(() => import('../pages/public/LadoB/LosHechosPage'));
 const LoQueEscucharonPage = lazy(() => import('../pages/public/LadoB/LoQueEscucharonPage'));
 const VigilarPage = lazy(() => import('../pages/public/LadoB/VigilarPage'));
@@ -38,9 +43,11 @@ const LosChicosMuertosPage = lazy(() => import('../pages/public/LadoB/LosChicosM
 
 //Lado C
 
-const FabulacionesYCreacionesPersonalesPage = lazy(() => import('../pages/public/LadoC/FabulacionesYCreacionesPersonalesPage'));
 
 // Al agregar una página publicada, asociá su id al loader correspondiente aquí.
+// Record<PublishedPage['id'], ...> exige exactamente una entrada por cada id publicado en navigation.ts:
+// si falta una o sobra una, tsc falla.Es una red de seguridad de tipos.
+
 const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
   home: HomePage,
   'la-pelicula': LaPeliculaPage,
@@ -50,7 +57,6 @@ const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
   glosario: GlosarioPage,
   'cuantas-masacres': CuantasMasacresPage,
   'con-el-cuerpo': ConElCuerpoPage,
-  'el-mundo-en-el-que-ocurrio': ElMundoEnElQueOcurrioPage,
   'los-hechos': LosHechosPage,
   'lo-que-escucharon': LoQueEscucharonPage,
   vigilar: VigilarPage,
@@ -59,9 +65,10 @@ const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
   'la-prensa': LaPrensaPage,
   'las-madres': LasMadresPage,
   'los-chicos-muertos': LosChicosMuertosPage,
-  fabulaciones: FabulacionesYCreacionesPersonalesPage,
+
 };
 
+// Recibe un id, busca el componente en el diccionario y devuelve <Page />, es decir, el elemento listo para poner en una ruta.
 function pageElement(id: string) {
   const Page = lazyPagesById[id as PublishedPage['id']];
 
@@ -72,6 +79,7 @@ function pageElement(id: string) {
   return <Page />;
 }
 
+// separar una ruta URL en una parte principal (parent) y una parte secundaria (child). Si la ruta no tiene al menos dos segmentos, devuelve null.
 function nestedPath(path: string): { parent: string; child: string } | null {
   const segments = path.replace(/^\//, '').split('/').filter(Boolean);
 
@@ -83,6 +91,7 @@ function nestedPath(path: string): { parent: string; child: string } | null {
   return { parent, child: rest.join('/') };
 }
 
+// Objetivo: que las URLs queden anidadas, o sea una ruta lado-a que contenga sus hijas.
 function buildSideRoutes(): RouteObject[] {
   const byParent = new Map<string, RouteObject[]>();
 
@@ -117,6 +126,14 @@ function buildSideRoutes(): RouteObject[] {
 }
 
 const publishedPages = getPublishedPages();
+
+/*
+Son tres alarmas:
+
+Toda página publicada tiene su componente.
+Todo componente registrado corresponde a una página publicada.
+Existe una página que cae en /.
+*/
 
 for (const item of publishedPages) {
   if (!(item.id in lazyPagesById)) {

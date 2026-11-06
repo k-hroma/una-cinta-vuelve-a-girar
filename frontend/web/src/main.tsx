@@ -1,3 +1,8 @@
+/*
+Rol: punto de entrada.Crea la raíz de React, renderiza < App /> y carga los CSS globales.
+Lo importa: index.html.
+*/
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './app/App.tsx'

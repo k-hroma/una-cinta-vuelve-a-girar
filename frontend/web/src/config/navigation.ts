@@ -1,13 +1,16 @@
+/**Rol: define qué páginas existen, a qué lado pertenecen, cómo se llaman y cómo se muestran en el menú. De acá salen el menú y las rutas. */
+
 export const HOME_PATH = '/' as const;
 
 export type SiteSide = 'a' | 'b' | 'c';
 export type PublicationStatus = 'published' | 'draft';
 export type PageKind = 'intro' | 'page';
 
+// Es el molde: define qué campos tiene que tener cada página
 export type PageModel = {
   id: string;
   title: string;
-  section: SiteSide | null;
+  section: SiteSide | null; // 'a' | 'b' | 'c' | null (null = la home)
   menuSection?: SiteSide;
   slug: string;
   publicationStatus: PublicationStatus;
@@ -23,28 +26,41 @@ export type PageModel = {
   };
 };
 
+// SECTION_SEGMENTS traduce 'a' en 'lado-a', que es lo que va en la URL.
 export const SECTION_SEGMENTS: Record<SiteSide, string> = {
   a: 'lado-a',
   b: 'lado-b',
   c: 'lado-c',
 };
 
+// SIDES es un array para poder recorrer los lados (SIDES.map(...) en el menú), porque un tipo no se puede recorrer: se borra al compilar.
 export const SIDES: SiteSide[] = ['a', 'b', 'c'];
 
+// SIDE_LABELS traduce 'a' en '[ Lado A ]', que es lo que se ve en el menú.
 export const SIDE_LABELS: Record<SiteSide, string> = {
   a: '[ Lado A ]',
   b: '[ Lado B ]',
   c: '[ Lado C ]',
 };
 
+// lista real: son 18 objetos
+// satisfies readonly PageModel[]: “verificá que cada objeto cumpla el molde PageModel"
+// as const: “no ensanches los valores, dejalos exactos”. Sin esto, TS pensaría que id es un string cualquiera. Con esto sabe que el id de la primera página es exactamente 'home'.
 export const pageModels = [
   {
     id: 'home',
     title: 'Una cinta vuelve a girar',
     section: null,
-    menuSection: 'a',
     slug: '',
     publicationStatus: 'published',
+    kind: 'page',
+  },
+  {
+    id: 'una-cinta-vuelve-a-girar',
+    title: 'Una cinta vuelve a girar',
+    section: 'a',
+    slug: 'una-cinta-vuelve-a-girar',
+    publicationStatus: 'draft',
     kind: 'intro',
   },
   {
@@ -115,7 +131,7 @@ export const pageModels = [
     title: 'El mundo en el que ocurrió',
     section: 'b',
     slug: 'el-mundo-en-el-que-ocurrio',
-    publicationStatus: 'published',
+    publicationStatus: 'draft',
     kind: 'intro',
   },
   {
@@ -189,16 +205,22 @@ export const pageModels = [
     title: 'Fabulaciones y creaciones personales',
     section: 'c',
     slug: 'fabulaciones-y-creaciones-personales',
-    publicationStatus: 'published',
+    publicationStatus: 'draft',
     kind: 'intro',
   },
 ] as const satisfies readonly PageModel[];
 
-export type PublishedPage = Extract<
-  (typeof pageModels)[number],
-  { publicationStatus: 'published' }
->;
+// Tipo calculado a partir de los datos---> un tipo que representa “una página publicada”. Por eso PublishedPage['id'] es la unión de los ids publicados
+// se lee de adentro haciia afuera:
+// typeof pageModels: “el tipo de la lista de datos”.
+// [number]: “el tipo de cualquier elemento de ese array”
+// Extract<..., { publicationStatus: 'published' }>: “de esa unión, quedate solo con los que tengan publicationStatus: 'published'”.
+export type PublishedPage = Extract<(typeof pageModels)[number], { publicationStatus: 'published' }>;
 
+
+// de ficha a URL--> ejemplo
+// entrada { section: 'a', slug: 'la-pelicula' }	
+// salida: '/lado-a/la-pelicula'
 export function derivePath(
   page: Pick<PageModel, 'section' | 'slug'>,
 ): string {
@@ -206,19 +228,28 @@ export function derivePath(
   return `/${SECTION_SEGMENTS[page.section]}/${page.slug}`;
 }
 
+//filter recorre el array y devuelve uno nuevo con los elementos que cumplen la condición. Devuelve PageModel[].
 export function getPublishedPages(): PageModel[] {
   return pageModels.filter((page) => page.publicationStatus === 'published');
 }
 
+export function getDraftPages(): PageModel[] {
+  return pageModels.filter((page) => page.publicationStatus === 'draft');
+}
+
+// 
 export function getSectionIntro(side: SiteSide): PageModel | undefined {
   const publishedPages = getPublishedPages();
-  const sectionIntro = publishedPages.find(
+  const draftPages = getDraftPages()
+  const sectionIntro = draftPages.find(
     (page) => page.section === side && page.kind === 'intro',
   );
 
-  if (sectionIntro) return sectionIntro;
+  if (sectionIntro) return sectionIntro; // si existe de las paginas publicadas, aquella que coincide con la seccion recibida y es intro, se devuelve
 
-  return publishedPages.find((page) => page.menuSection === side);
+  return publishedPages.find((page) => page.menuSection === side); // si no devuelve un array con las paginas en las que coincide el menuSection con "side" 
+
+  //si no hay ninguna de las dos se devuelve undefined
 }
 
 export function getSectionPages(side: SiteSide): PageModel[] {
