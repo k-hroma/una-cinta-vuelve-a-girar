@@ -1,6 +1,6 @@
-import ConstructionPage from "../ConstructionPage"
+import ConstructionPage from '../ConstructionPage';
 
 
 export default function LaCintaYElSoportePage() {
-  return <ConstructionPage />
-};
+  return <ConstructionPage />;
+}

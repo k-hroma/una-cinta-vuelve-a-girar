@@ -1,4 +1,5 @@
-import ConstructionPage from "../ConstructionPage"
+import ConstructionPage from '../ConstructionPage';
+
 export default function FabulacionesYCreacionesPersonalesPage() {
-  return <ConstructionPage />
-};
+  return <ConstructionPage />;
+}

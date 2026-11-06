@@ -1,5 +1,5 @@
-import ConstructionPage from "../ConstructionPage"
+import ConstructionPage from '../ConstructionPage';
 
 export default function LaPrensaPage() {
-  return <ConstructionPage />
-};
+  return <ConstructionPage />;
+}
