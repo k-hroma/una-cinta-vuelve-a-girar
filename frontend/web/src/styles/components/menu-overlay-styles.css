@@ -16,14 +16,7 @@
 }
 
 .menu-overlay-header {
-  display: flex;
   flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-5) var(--space-24);
-
-  font-size: var(--small-font-size);
-  letter-spacing: 7%;
 }
 
 .menu-section-label {
@@ -35,6 +28,10 @@
   line-height: 100%;
   background-color: var(--black);
   color: var(--yellow);
+}
+
+.menu-section-label--mobile {
+  display: none;
 }
 
 .menu-overlay-content {
@@ -82,6 +79,10 @@
   letter-spacing: 6%;
   text-decoration: underline;
   margin-bottom: var(--space-3);
+}
+
+.menu-section-intro--mobile {
+  display: none;
 }
 
 .menu-section p {
@@ -144,4 +145,190 @@
 
 .nav-menu-button:focus:not(:focus-visible) {
   outline: none;
+}
+
+@media (min-width: 768px) and (max-width: 1224px) {
+  .menu-overlay-content {
+    grid-template-rows: auto auto;
+    align-content: space-between;
+    column-gap: clamp(1.6rem, 3.3333vw, 2.133rem);
+    row-gap: clamp(1.067rem, 2.2222vw, 1.422rem);
+    padding-block: clamp(0.8rem, 1.6667vw, 1.067rem);
+    padding-inline: clamp(3.2rem, 6.6667vw, 4.267rem);
+    overflow-y: auto;
+  }
+
+  .menu-section {
+    gap: clamp(0.267rem, 0.5556vw, 0.356rem);
+  }
+
+  .menu-section--b {
+    margin-right: clamp(0.533rem, 1.1111vw, 0.711rem);
+  }
+
+  .menu-section--c {
+    align-self: start;
+  }
+
+  .menu-section-intro {
+    margin-bottom: clamp(0.4rem, 0.8333vw, 0.533rem);
+  }
+
+  .menu-section-label {
+    font-size: clamp(0.8125rem, 1.4vw, 0.95rem);
+  }
+
+  .menu-section-intro {
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+  }
+
+  .menu-section-pages {
+    gap: clamp(1.6rem, 3.3333vw, 2.133rem);
+  }
+
+  .menu-link {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .menu-link--large {
+    margin-bottom: clamp(0.267rem, 0.5556vw, 0.356rem);
+    font-size: clamp(2.25rem, 6vw, 4rem);
+  }
+
+  .menu-link--bullet {
+    margin-left: clamp(0.533rem, 1.1111vw, 0.711rem);
+  }
+
+  .menu-link--margin-bottom {
+    margin-bottom: clamp(0.267rem, 0.5556vw, 0.356rem);
+  }
+
+  .menu-link--margin-top {
+    margin-top: clamp(0.267rem, 0.5556vw, 0.356rem);
+  }
+
+  .menu-link--margin-right {
+    margin-right: clamp(1.6rem, 3.3333vw, 2.133rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-overlay {
+    inset: 0;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .menu-overlay-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: var(--space-6);
+    padding: var(--space-4);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .menu-section {
+    gap: var(--space-2);
+  }
+
+  .menu-section--b {
+    margin-right: 0;
+    
+  }
+  #menu-side-b-pages {
+    gap: var(--space-2);
+  }
+
+  .menu-section-label {
+    font-size: 0.875rem;
+  }
+
+  .menu-section-label--desktop {
+    display: none;
+  }
+
+  .menu-section-label--mobile {
+    display: inline;
+    font-size: var(--small-font-size);
+    line-height: 75%;
+    letter-spacing: 7%;
+    padding: 3px 4px;
+  }
+
+  .menu-section-intro--desktop {
+    display: none;
+  }
+
+  .menu-section-intro--mobile {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0;
+    margin-bottom: 0;
+    border: 0;
+    background: transparent;
+    color: var(--black);
+    font: inherit;
+    font-size: var(--small-font-size);
+    line-height: 75%;
+    letter-spacing: 6%;
+    text-align: left;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .menu-section-intro--mobile:focus-visible {
+    outline: 2px solid var(--black);
+    outline-offset: 3px;
+  }
+
+  .menu-section-pages {
+    display: none;
+    margin-top: var(--space-2);
+  }
+
+  .menu-section-pages--expanded {
+    gap: 0;
+    display: flex;
+  }
+
+  .menu-link {
+    font-size: 1.5rem;
+    line-height: 90%;
+    letter-spacing: 6%;
+  }
+
+  .menu-link--large {
+    margin-top: 0;
+    margin-bottom: var(--space-4);
+    font-size: 2.25rem;
+    line-height: 75%;
+  }
+
+  .menu-link--bullet {
+    margin-bottom: var(--space-2);
+  }
+
+  .menu-link--margin-top {
+  margin-top: 0;
+ }
+ 
+
+ .menu-link--margin-bottom {
+  margin-bottom: var(--space-4);
+ }
+ 
+
+  .menu-link--margin-right {
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-section-pages {
+    scroll-behavior: auto;
+  }
 }

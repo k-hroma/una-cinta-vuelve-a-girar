@@ -35,7 +35,7 @@ export default function Hero() {
       <div className="hero-img-container">
         <div className='hero-txt-container'>
           <p className='hero-lado-a'>[ Lado A ]</p>
-          <h1 className='hero-title'>Una cinta vuelve a girar</h1>
+          <h1 className='hero-title'>Una cinta vuelve <span className='hero-title-agirar'>a girar</span></h1>
           <p className='hero-sub-title'>Budge pregunta, seguirá preguntando</p>
         </div>
         {portraits.map((portrait) => (

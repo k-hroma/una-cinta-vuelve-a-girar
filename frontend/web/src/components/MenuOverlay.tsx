@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
 import IconTextButton from './ui/IconTextButton';
 import navBarFolderIcon from '../assets/icons/nav-bar-folder.svg';
@@ -10,14 +10,23 @@ import {
   derivePath,
   getSectionIntro,
   getSectionPages,
+  type SiteSide,
   type PageModel,
 } from '../config/navigation';
 import '../styles/components/menu-overlay-styles.css';
 
+
+/*
+* Describe lo que MenuOverlay recibe del padre. Solo una cosa: onClose.
+* () => void es el tipo de una función que no recibe nada y no devuelve nada.
+* Quien lo usa (NavBar, línea 83) pasa closeMenu, que hace setIsMenuOpen(false).
+*/
 type MenuOverlayProps = {
   onClose: () => void;
 };
 
+// { item, onClose } es desestructuración
+// { item: PageModel; onClose: () => void } es el tipo, escrito ahí mismo (en este componente no se creó un type aparte).
 function MenuEntry({
   item,
   onClose,
@@ -63,6 +72,7 @@ export default function MenuOverlay({
 }: MenuOverlayProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const [openSide, setOpenSide] = useState<SiteSide | null>(null);
 
   useEffect(() => {
     closeButtonRef.current?.focus();
@@ -82,9 +92,9 @@ export default function MenuOverlay({
         const dialog = dialogRef.current;
         if (!dialog) return;
 
-        const focusableElements = dialog.querySelectorAll<HTMLElement>(
+        const focusableElements = Array.from(dialog.querySelectorAll<HTMLElement>(
           'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        );
+        )).filter((element) => element.getClientRects().length > 0);
 
         if (focusableElements.length === 0) {
           event.preventDefault();
@@ -103,7 +113,7 @@ export default function MenuOverlay({
         }
       }}
     >
-      <div className="menu-overlay-header">
+      <div className="nav-bar-container menu-overlay-header">
         <NavLink
           to={HOME_PATH}
           className="folder-txt-content">
@@ -127,6 +137,8 @@ export default function MenuOverlay({
           const intro = getSectionIntro(side);
           const pages = getSectionPages(side);
           const headingId = `menu-side-${side}`;
+          const pagesId = `menu-side-${side}-pages`;
+          const isExpanded = openSide === side;
 
           return (
             <section
@@ -135,12 +147,37 @@ export default function MenuOverlay({
               aria-labelledby={headingId}
             >
               <p id={headingId} className="menu-section-label">
-                {SIDE_LABELS[side]}
+                <span className="menu-section-label--desktop">
+                  {SIDE_LABELS[side]}
+                </span>
+                <span className="menu-section-label--mobile">
+                  {SIDE_LABELS[side].replace(/\[|\]/g, '').trim()}
+                </span>
               </p>
-              {intro ? <MenuEntry item={intro} onClose={onClose} /> : null}
+              {intro && pages.length > 0 ? (
+                <>
+                  <span className="menu-section-intro menu-section-intro--desktop">
+                    {intro.title}
+                  </span>
+                  <button
+                    type="button"
+                    className="menu-section-intro menu-section-intro--mobile"
+                    aria-expanded={isExpanded}
+                    aria-controls={pagesId}
+                    onClick={() => setOpenSide(isExpanded ? null : side)}
+                  >
+                    {intro.title}
+                  </button>
+                </>
+              ) : intro ? (
+                <MenuEntry item={intro} onClose={onClose} />
+              ) : null}
 
               {pages.length > 0 ? (
-                <div className="menu-section-pages">
+                <div
+                  id={pagesId}
+                  className={`menu-section-pages${isExpanded ? ' menu-section-pages--expanded' : ''}`}
+                >
                   {pages.map((item) => (
                     <MenuEntry key={item.id} item={item} onClose={onClose} />
                   ))}
