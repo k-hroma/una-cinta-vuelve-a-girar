@@ -1,20 +1,85 @@
 .footer-container {
   display: flex;
   flex-direction: column;
-  background-color: var(--black);
   width: 100%;
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.txt-content {
+  background-color: var(--black);
   color: var(--beige);
+}
+
+/* ─── Desktop (diseño 1440) ─── */
+.footer-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.19fr) minmax(0, 1fr) auto;
+  column-gap: var(--space-8);
+  align-items: start;
+
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+
+  padding:
+    calc(var(--space-24) + var(--space-12))
+    var(--space-24)
+    calc(var(--space-16) + var(--space-4));
+}
+
+.footer-text {
+  font-family: var(--font-bootzyTM);
   font-size: var(--small-font-size);
   line-height: 120%;
   letter-spacing: 7%;
-  
+  color: var(--beige);
+}
+
+/* Lado A / B / C: una línea de espacio entre cada uno */
+.footer-sides {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);               
+  list-style: none;
+
+}
+
+.footer-link {
+  text-decoration: none;
+  color: var(--beige);
+}
+
+/* Créditos: dos bloques separados */
+.footer-credits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.footer-date {
+  white-space: nowrap;
+}
+
+/* ─── Tablet (mismo rango que el menú) ─── */
+@media (min-width: 768px) and (max-width: 1224px) {
+  .footer-content {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    column-gap: var(--space-6);
+    padding:
+      var(--space-24)
+      var(--space-12)
+      var(--space-16);
+  }
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 767px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-8);
+    padding:
+      var(--space-12)
+      var(--space-4)
+      var(--space-8);
+  }
+
+  .footer-sides {
+    gap: var(--space-2);
+  }
 }
