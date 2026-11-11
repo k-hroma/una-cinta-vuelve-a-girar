@@ -148,67 +148,109 @@
 }
 
 @media (min-width: 768px) and (max-width: 1224px) {
+.menu-overlay-content {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, auto);
+  grid-template-areas:
+    "lado-a lado-b"
+    "lado-a lado-c";
+  column-gap: var(--space-1);
+  row-gap: var(--space-1);
+  padding: var(--space-6) var(--space-12);
+
+  overflow-y: hidden; 
+}
+
+.menu-section-intro {
+  margin-bottom: 0;
+}
+
+.menu-section-pages {
+  gap: var(--space-2);
+}
+
+.menu-section--b {
+  margin-right: 0;
+
+}
+}
+
+@media (min-width: 768px) {
   .menu-overlay-content {
-    grid-template-rows: auto auto;
-    align-content: space-between;
-    column-gap: clamp(1.6rem, 3.3333vw, 2.133rem);
-    row-gap: clamp(1.067rem, 2.2222vw, 1.422rem);
-    padding-block: clamp(0.8rem, 1.6667vw, 1.067rem);
-    padding-inline: clamp(3.2rem, 6.6667vw, 4.267rem);
-    overflow-y: auto;
+    --kw: min(calc(100vw / 1440), 1px);                 /* escala por ancho */
+    --kh: calc((100dvh - 106px) / 610);                 /* límite por alto */
+
+    --k: min(var(--kw), var(--kh));                     /* espacios: escala pura */
+
+    /* Fuentes: escalan más despacio. El número es cuánto "se resiste" a achicarse:
+       0 = igual que --k, 1 = no se achica nunca */
+    --kf-text:  min(calc(var(--kw) + (1px - var(--kw)) * 0.5),  var(--kh));
+    --kf-large: min(calc(var(--kw) + (1px - var(--kw)) * 0.1),  var(--kh));   /* antes 0.2 */
+
+    flex: 0 1 auto;
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(calc(var(--k) * 290), max-content);
   }
 
-  .menu-section {
-    gap: clamp(0.267rem, 0.5556vw, 0.356rem);
+  /* ─── Label e intro ─── */
+  .menu-section .menu-section-label {
+    font-size: max(0.75rem, calc(var(--kf-text) * 16));
+    padding: calc(var(--k) * 4);
   }
 
+  .menu-section .menu-section-intro {
+    font-size: max(0.75rem, calc(var(--kf-text) * 16));
+    margin-bottom: calc(var(--k) * 12);
+  }
+
+  /* ─── Lado A ─── */
+  .menu-section--a .menu-section-pages {
+    gap: calc(var(--k) * 16);
+  }
+
+  .menu-section--a .menu-link {
+    font-size: max(var(--small-font-size), calc(var(--kf-text) * 27));
+  }
+
+  .menu-section--a .menu-link--large {
+    font-size: calc(var(--kf-large) * 96);
+    margin-bottom: calc(var(--k) * 8);
+  }
+
+  .menu-section--a .menu-link--bullet {
+    margin-left: calc(var(--k) * 16);
+  }
+
+  .menu-section--a .menu-link--margin-top {
+    margin-top: calc(var(--k) * 8);
+  }
+
+  .menu-section--a .menu-link--margin-bottom {
+    margin-bottom: calc(var(--k) * 8);
+  }
+
+  /* ─── Lado B ─── */
   .menu-section--b {
-    margin-right: clamp(0.533rem, 1.1111vw, 0.711rem);
+    max-width: calc(var(--kf-text) * 290);   /* escala con la fuente para que los links se partan igual */
   }
 
+  .menu-section--b .menu-link {
+    font-size: max(var(--small-font-size), calc(var(--kf-text) * 27));
+  }
+
+  /* ─── Lado C ─── */
   .menu-section--c {
-    align-self: start;
+    align-self: end;
+    margin-bottom: calc(var(--k) * 20);
   }
 
-  .menu-section-intro {
-    margin-bottom: clamp(0.4rem, 0.8333vw, 0.533rem);
-  }
-
-  .menu-section-label {
-    font-size: clamp(0.8125rem, 1.4vw, 0.95rem);
-  }
-
-  .menu-section-intro {
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-  }
-
-  .menu-section-pages {
-    gap: clamp(1.6rem, 3.3333vw, 2.133rem);
-  }
-
-  .menu-link {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .menu-link--large {
-    margin-bottom: clamp(0.267rem, 0.5556vw, 0.356rem);
-    font-size: clamp(2.25rem, 6vw, 4rem);
-  }
-
-  .menu-link--bullet {
-    margin-left: clamp(0.533rem, 1.1111vw, 0.711rem);
-  }
-
-  .menu-link--margin-bottom {
-    margin-bottom: clamp(0.267rem, 0.5556vw, 0.356rem);
-  }
-
-  .menu-link--margin-top {
-    margin-top: clamp(0.267rem, 0.5556vw, 0.356rem);
-  }
-
-  .menu-link--margin-right {
-    margin-right: clamp(1.6rem, 3.3333vw, 2.133rem);
+  .menu-section--c .menu-section-intro--desktop {
+    white-space: nowrap;
   }
 }
 
