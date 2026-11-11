@@ -1,0 +1,120 @@
+
+/* ─── La película: índice de secciones ─── */
+
+.film-index {
+  width: 100%;
+  min-width: 0;
+  padding-block: var(--space-17); 
+  padding-inline: clamp(
+    1rem,
+    calc(1rem + (100vw - 380px) * 0.07547),
+    6rem
+  );
+  background-color: var(--black);
+  color: var(--beige, #f4ece0);
+}
+
+.film-index__eyebrow {
+  display: inline-block;
+  color: var(--beige);
+  text-decoration: none;
+
+  font-size: var(--small-font-size);
+  line-height: 100%;
+  letter-spacing: 7%;
+
+  margin-bottom: var(--space-8);
+}
+
+.film-index__eyebrow:focus-visible,
+.film-index__link:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 5px;
+}
+
+.film-index__navigation {
+  width: 100%;
+}
+
+.film-index__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 2rem;
+  border-bottom: 1px solid var(--beige, #f4ece0);
+  margin-top: var(--space-12);
+}
+
+.film-index__item:first-child {
+  margin-top: 0;
+}
+
+.film-index__content {
+  min-width: 0;
+  max-width: 50%;
+}
+
+@media (max-width: 1024px) {
+  .film-index__content {
+    max-width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .film-index__content {
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 475px) {
+  .film-index__content {
+    max-width: 100%;
+  }
+}
+
+
+.film-index__title {
+  font-size: clamp(
+    1.5rem,
+    calc(1.4328rem + 0.283vw),
+    var(--medium-font-size)
+  );
+  line-height: 100%;
+  font-weight: 400;
+  letter-spacing: 6%;
+}
+
+.film-index__description {
+  margin-top: var(--space-2);
+  margin-bottom: var( --space-5);
+  font-size:var(--small-font-size);
+  line-height: 100%;
+  letter-spacing: 7%;
+
+}
+
+.film-index__link {
+  display: inline-block;
+  flex-shrink: 0;
+  color: var(--beige);
+  font-size:var(--small-font-size);
+  line-height: 100%;
+  letter-spacing: 7%;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+
+.film-index__link:hover {
+  color: var(--yellow, #ffed25);
+}
+
+
+
+/* ─── Accesibilidad: reducir animaciones ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  .film-index__link {
+    transition: none;
+  }
+}

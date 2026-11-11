@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link, type To } from 'react-router';
-import './ui.css';
+import '../../styles/components/ui/ui.css';
 
 type ActionLinkProps = {
   to: To;

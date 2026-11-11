@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import './ui.css';
+import '../../styles/components/ui/ui.css';
 
 type EyebrowProps = {
   children: ReactNode;

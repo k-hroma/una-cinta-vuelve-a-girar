@@ -1,9 +1,16 @@
-import Hero from '../../components/Hero';
+import ElProyectoIndexPage from '../../components/home/ElProyectoIndexPage';
+import Hero from '../../components/home/Hero';
+import LaPeliculaIndexPage from '../../components/home/LaPeliculaIndexPage';
+
+
+
 
 export default function HomePage() {
   return (
-    <section className="home-section">
+    <section>
       <Hero />
+      <LaPeliculaIndexPage />
+      <ElProyectoIndexPage />
     </section>
   );
 }

@@ -1,0 +1,16 @@
+.home-section {
+  padding-left: clamp(1.5rem, 6.6vw, 6rem);
+  padding-right: clamp(1.5rem, 6.6vw, 6rem);
+}
+
+.home-section {
+  padding-inline: clamp(
+    var(--space-4),
+    calc(1rem + (100vw - 380px) * (80 / 1060)),
+    var(--space-24)
+  );
+}
+
+.home-section {
+  padding: (var(--space-4), 5.5vw, var(--space-24));
+}

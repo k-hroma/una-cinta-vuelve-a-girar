@@ -1,8 +1,8 @@
-import portraitOne from '../assets/img/foto-willi.png'
-import portraitTwo from '../assets/img/foto-el-negro.png'
-import portraitThree from '../assets/img/foto-oscar.png'
+import portraitOne from '../../assets/img/foto-willi.png'
+import portraitTwo from '../../assets/img/foto-el-negro.png'
+import portraitThree from '../../assets/img/foto-oscar.png'
 
-import '../styles/components/hero-styles.css'
+import '../../styles/components/home/hero-styles.css'
 
 const portraits = [
   {

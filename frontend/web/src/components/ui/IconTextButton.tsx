@@ -3,7 +3,7 @@ import type {
   ReactNode,
   Ref,
 } from 'react';
-import './ui.css';
+import '../../styles/components/ui/ui.css';
 
 type IconTextButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
