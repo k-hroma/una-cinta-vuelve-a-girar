@@ -1,0 +1,98 @@
+.glosario-teaser {
+  /* Todos los hijos se apilan en la misma celda */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* la columna nunca crece por el contenido */
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--beige);
+
+  --panel-inline: var(--gutter);
+}
+
+.glosario-teaser > * {
+  grid-area: 1 / 1;
+}
+
+/* Capa 1: palabras de fondo */
+.glosario-teaser__words {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;   /* si es más ancho que la sección, desborda a ambos lados */
+  width: max-content;
+  min-width: 100%;
+  font-size: 5.875rem;
+  line-height: 1;
+  letter-spacing: 0.07em;
+  color: var(--black);
+}
+
+.glosario-teaser__word-row {
+  margin: 0;
+  white-space: nowrap;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+/* Capa 2: velo oscuro, ocupa todo el ancho y alto de la sección */
+.glosario-teaser__overlay {
+  background-color: rgb(0 0 0 / 0.88);
+  pointer-events: none;
+}
+
+/* Capas 3 y 4: panel */
+.glosario-teaser__panel {
+  position: relative;
+  isolation: isolate;
+  align-self: center;
+  margin-inline: var(--panel-inline);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 17.5rem;
+  padding-block: var(--space-9);
+  padding-inline: clamp(var(--space-4), calc(var(--space-4) + (100vw - 380px) * 0.0151), var(--space-8));
+
+  font-size: var(--small-font-size);
+  line-height: 1;
+  letter-spacing: 0.07em;
+  color: var(--yellow);
+}
+
+/* Capa 3: rectángulo negro */
+.glosario-teaser__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--black); 
+}
+
+/* Capa 4: contenido */
+.glosario-teaser__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.glosario-teaser__label,
+.glosario-teaser__description {
+  margin: 0;
+}
+
+.glosario-teaser__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glosario-teaser__link:hover,
+.glosario-teaser__link:focus-visible {
+  text-decoration: underline;
+}
+
+.glosario-teaser__description {
+  max-width: 24rem;
+}
+
+/* Mobile: el panel gana altura para que el texto respire */

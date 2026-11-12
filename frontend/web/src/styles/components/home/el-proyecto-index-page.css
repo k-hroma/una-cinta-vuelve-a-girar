@@ -1,33 +1,47 @@
 .el-proyecto-home-section {
+  position: relative;
   display: flex;
   flex-direction: column;
+  isolation: isolate;
   background-color: var(--beige);
   padding-block: var(--space-17);
-  padding-inline: clamp(
-    1rem,
-    calc(1rem + (100vw - 380px) * 0.07547),
-    6rem
-  );
+  padding-inline: var(--gutter);
   color: var(--black);
   font-family: var( --font-bootzyTM);
 }
 
+/* Capa de textura entre el fondo y el texto */
+.el-proyecto-home-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url('../../../assets/textures/textura.webp'); 
+  background-size: cover;      
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;               
+  pointer-events: none;
+}
+
 .label-el-proyecto-index {
   font-size: var(--small-font-size);
-  line-height: 100%;
-  letter-spacing: 7%;
+  line-height: 1;
+  letter-spacing: 0.07em;
   margin-bottom: var(--space-8);
   
 }
 
 .description-el-proyect-index {
   font-size: clamp(2rem, 1.2rem + 2vw, var(--large-font-size));
-  letter-spacing: 7%;
-  margin-bottom: clamp(var(--space-16 ), calc(1rem + 4vw), var(--space-48));
-  @media (max-width: 400px) {
-    letter-spacing: 3%;
-  }
+  letter-spacing: 0.07em;
+  margin-bottom: clamp(var(--space-16), calc(1rem + 4vw), var(--space-48));
+}
 
+@media (max-width: 400px) {
+  .description-el-proyect-index {
+    letter-spacing: 0.03em;
+  }
 }
 
 .sub-description-el-proyect-index {
@@ -36,6 +50,6 @@ text-decoration: underline;
 
 .credits-el-proyecto-index {
   font-size: var(--small-font-size);
-  line-height: 100%;
-  letter-spacing: 7%;
+  line-height: 1;
+  letter-spacing: 0.07em;
 }

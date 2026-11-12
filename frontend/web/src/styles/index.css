@@ -33,6 +33,7 @@
   --space-6: 1.5rem;
   --space-7: 1.8rem;
   --space-8: 2rem;
+  --space-9: 2.25rem;
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
@@ -50,11 +51,8 @@
   --black: #121212;
   --soft-black:#242424;
 
-  /*
-   * Breakpoints actuales: 900px, 760px y 480px.
-   * Se mantienen literales en @media: CSS no permite usar custom properties
-   * como valores de condiciones media sin transformación de build.
-   */
+  /*-----padding margin----*/
+  --gutter: clamp(1rem, calc(1rem + (100vw - 380px) * 0.07547), 6rem);
 }
 
 #root {

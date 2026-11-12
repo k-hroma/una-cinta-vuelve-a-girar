@@ -1,16 +1,12 @@
 .nav-bar-container {
   display: flex;
   padding-block: var(--space-5);
-  padding-inline: clamp(
-    1rem,
-    calc(1rem + (100vw - 380px) * 0.07547),
-    6rem
-  );
+  padding-inline: var(--gutter);
   justify-content: space-between;
   align-items: center;
   background-color: var(--yellow);
   font-size: var(--small-font-size);
-  letter-spacing: 7%;
+  letter-spacing: 0.07em;
 }
 
 .folder-txt-content {
@@ -22,8 +18,8 @@
   color: var(--black);
   font-size: var(--small-font-size);
   font-weight: 400;
-  letter-spacing: 7%;
-  line-height: 100%;
+  letter-spacing: 0.07em;
+  line-height: 1;
   text-decoration: none;
 }
 

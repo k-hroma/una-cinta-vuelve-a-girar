@@ -32,11 +32,7 @@
     calc(2rem + (100vw - 380px) * (68 / 1060)),
     13rem
   );
-  padding-inline: clamp(
-    1rem,
-    calc(1rem + (100vw - 380px) * 0.07547),
-    6rem
-  );
+  padding-inline: var(--gutter);
 
   pointer-events: none;
 }
@@ -45,7 +41,7 @@
   font-family: var(--font-bootzyTM);
   font-size: var(--small-font-size); 
   line-height: 75%;
-  letter-spacing: 7%;
+  letter-spacing: 0.07em;
   background-color: var(--yellow);
   align-self: flex-start;
   width: fit-content;
@@ -71,7 +67,7 @@
   white-space: nowrap;
   margin-top: var(--space-6);
   color: var(--yellow);
-  line-height: 100%;
+  line-height: 1;
   letter-spacing: clamp(
     0.04em,
     calc(0.04em + (100vw - 380px) * (0.81 / 1060)),
@@ -114,7 +110,7 @@
   font-family: var(--font-apercuMono);
   color: var(--black);
   font-size: 0.75rem;
-  line-height: 100%;
+  line-height: 1;
   letter-spacing: -2%;
   white-space: nowrap;
 
@@ -135,12 +131,12 @@
 
 .hero-portrait--one {
   top: 14%;
-  left: 53%;
+  left: 50.03em;
 }
 
 .hero-portrait--two {
   top: 49%;
-  left: 73%;
+  left: 70.03em;
 
 }
 
@@ -152,7 +148,7 @@
 /* Tablet */
 @media (max-width: 1024px) {
   .hero-portrait--one {
-    top: 3%;
+    top: 0.03em;
     left: 26%;
   }
 
@@ -174,7 +170,7 @@
   }
   
 .hero-portrait--one {
-  top: -3%;
+  top: -0.03em;
   left: 10%;
 }
 
@@ -185,7 +181,7 @@
 }
 
 .hero-portrait--three {
-  bottom: -3%;
+  bottom: -0.03em;
   left: -6%;
 }
 

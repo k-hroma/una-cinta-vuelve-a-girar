@@ -60,8 +60,8 @@
   color: inherit;
   font: var(--font-bootzyTM);
   font-size: var(--small-font-size);
-  line-height: 100%;
-  letter-spacing: 7%;
+  line-height: 1;
+  letter-spacing: 0.07em;
   cursor: pointer;
   outline: none;
 }

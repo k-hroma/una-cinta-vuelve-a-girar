@@ -17,6 +17,7 @@
 
 .menu-overlay-header {
   flex-shrink: 0;
+
 }
 
 .menu-section-label {
@@ -24,8 +25,8 @@
   width: fit-content;
   padding: var(--space-1);
   font-family: var(--font-bootzyTM);
-  letter-spacing: 7%;
-  line-height: 100%;
+  letter-spacing: 0.07em;
+  line-height: 1;
   background-color: var(--black);
   color: var(--yellow);
 }
@@ -47,7 +48,8 @@
     "lado-a lado-c";
   column-gap: var(--space-12);
   row-gap: var(--space-8);
-  padding: var(--space-6) var(--space-24);
+  padding-block: var(--space-6);
+  padding-inline: var(--gutter);
 
   overflow-y: hidden; 
 }
@@ -75,7 +77,7 @@
   font-family: var(--font-bootzyTM);
   color: var(--black);
   font-size: var(--small-font-size);
-  line-height: 100%;
+  line-height: 1;
   letter-spacing: 6%;
   text-decoration: underline;
   margin-bottom: var(--space-3);
@@ -99,7 +101,7 @@
 .menu-link {
   color: inherit;
   font-size: var( --medium-font-size);
-  line-height: 100%;
+  line-height: 1;
   letter-spacing: 6%;
   text-decoration: none;
 }
@@ -161,7 +163,6 @@
     "lado-a lado-c";
   column-gap: var(--space-1);
   row-gap: var(--space-1);
-  padding: var(--space-6) var(--space-12);
 
   overflow-y: hidden; 
 }
@@ -267,7 +268,7 @@
     flex-direction: column;
     flex: 1;
     gap: var(--space-6);
-    padding: var(--space-4);
+
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -297,7 +298,7 @@
     display: inline;
     font-size: var(--small-font-size);
     line-height: 75%;
-    letter-spacing: 7%;
+    letter-spacing: 0.07em;
     padding: 3px 4px;
   }
 

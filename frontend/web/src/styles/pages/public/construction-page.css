@@ -96,7 +96,7 @@
     radial-gradient(
       circle,
       var(--beige) 0 12%,
-      var(--black) 13% 25%,
+      var(--black) 10.03em 25%,
       transparent 26%
     ),
     repeating-conic-gradient(
