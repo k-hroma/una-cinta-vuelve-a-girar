@@ -3,38 +3,15 @@ import { Link } from 'react-router';
 import {
   derivePath,
   getPublishedPages,
-  type PublishedPage,
 } from '../../config/navigation';
-
-// TODO: ajustá las rutas de las fotos
-import volverAVerImage from '../../assets/img/volver-a-ver.png';
-import cintaSoporteImage from '../../assets/img/la-cinta-y-el-soporte.png';
-import marioCelestinoImage from '../../assets/img/mario-celestino.png';
+import {
+  laPeliculaSectionIds,
+  laPeliculaSections,
+} from '../../content/laPelicula';
 
 import '../../styles/components/home/la-pelicula-index-page.css';
 
-const sectionIds = [
-  'volver-a-ver',
-  'la-cinta-y-el-soporte',
-  'mario-celestino',
-] as const satisfies readonly PublishedPage['id'][];
-
-type SectionId = (typeof sectionIds)[number];
-
-const sectionDescriptions = {
-  'volver-a-ver':
-    'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
-  'la-cinta-y-el-soporte':
-    'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
-  'mario-celestino':
-    'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
-} satisfies Record<SectionId, string>;
-
-const sectionImages = {
-  'volver-a-ver': volverAVerImage,
-  'la-cinta-y-el-soporte': cintaSoporteImage,
-  'mario-celestino': marioCelestinoImage,
-} satisfies Record<SectionId, string>;
+type SectionId = (typeof laPeliculaSectionIds)[number];
 
 export default function LaPeliculaIndex() {
   const [activeId, setActiveId] = useState<SectionId | null>(null);
@@ -43,7 +20,7 @@ export default function LaPeliculaIndex() {
 
   const filmPage = publishedPages.find((page) => page.id === 'la-pelicula');
 
-  const sections = sectionIds.flatMap((id) => {
+  const sections = laPeliculaSectionIds.flatMap((id) => {
     const page = publishedPages.find((item) => item.id === id);
 
     if (!page) return [];
@@ -53,14 +30,14 @@ export default function LaPeliculaIndex() {
         ...page,
         id,
         to: derivePath(page),
-        description: sectionDescriptions[id],
-        image: sectionImages[id],
+        description: laPeliculaSections[id].description,
+        image: laPeliculaSections[id].image,
       },
     ];
   });
 
   return (
-    <main className="film-index">
+    <section className="film-index">
       {/* Fotos del hover: una por sección, todas en el centro */}
       <div className="film-index__previews" aria-hidden="true">
         {sections.map((section) => (
@@ -114,6 +91,6 @@ export default function LaPeliculaIndex() {
           </article>
         ))}
       </nav>
-    </main>
+    </section>
   );
 }

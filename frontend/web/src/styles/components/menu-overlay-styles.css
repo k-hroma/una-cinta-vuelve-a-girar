@@ -78,7 +78,7 @@
   color: var(--black);
   font-size: var(--small-font-size);
   line-height: 1;
-  letter-spacing: 6%;
+  letter-spacing: 0.06em;
   text-decoration: underline;
   margin-bottom: var(--space-3);
 }
@@ -102,7 +102,7 @@
   color: inherit;
   font-size: var( --medium-font-size);
   line-height: 1;
-  letter-spacing: 6%;
+  letter-spacing: 0.06em;
   text-decoration: none;
 }
 
@@ -130,45 +130,15 @@
   margin-right: var(--space-12) ;
 }
 
-.menu-link--disabled {
-  opacity: 0.45;
-  cursor: default;
-  text-decoration: none;
-}
-
-.menu-link--disabled:hover {
-  text-decoration: none;
-}
-
 .menu-link:focus-visible {
-  outline: none;
+  outline: 2px solid currentColor;
   outline-offset: 4px;
-}
-
-.nav-menu-button:focus:not(:focus-visible) {
-  outline: none;
 }
 
 @media (min-width: 768px) and (max-width: 1224px) {
 .menu-overlay-content {
-  display: grid;
-  flex: 1;
-  min-height: 0;
-  min-width: 0;
-
-  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) minmax(0, auto);
-  grid-template-areas:
-    "lado-a lado-b"
-    "lado-a lado-c";
   column-gap: var(--space-1);
   row-gap: var(--space-1);
-
-  overflow-y: hidden; 
-}
-
-.menu-section-intro {
-  margin-bottom: 0;
 }
 
 .menu-section-pages {
@@ -317,7 +287,7 @@
     font: inherit;
     font-size: var(--small-font-size);
     line-height: 75%;
-    letter-spacing: 6%;
+    letter-spacing: 0.06em;
     text-align: left;
     text-decoration: underline;
     cursor: pointer;
@@ -341,7 +311,7 @@
   .menu-link {
     font-size: 1.5rem;
     line-height: 90%;
-    letter-spacing: 6%;
+    letter-spacing: 0.06em;
   }
 
   .menu-link--large {

@@ -69,8 +69,8 @@ const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
 };
 
 // Recibe un id, busca el componente en el diccionario y devuelve <Page />, es decir, el elemento listo para poner en una ruta.
-function pageElement(id: string) {
-  const Page = lazyPagesById[id as PublishedPage['id']];
+function pageElement(id: PublishedPage['id']) {
+  const Page = lazyPagesById[id];
 
   if (!Page) {
     throw new Error(`No hay página lazy registrada para el id ${id}`);

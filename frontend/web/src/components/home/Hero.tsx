@@ -23,21 +23,21 @@ const portraits = [
   {
     id: 'portrait-one',
     src: portraitOne,
-    alt: 'Retrato de archivo',
+    alt: 'Willi Argarañaz',
     text: 'WILLI ARGARAÑAZ',
     className: 'hero-portrait--one',
   },
   {
     id: 'portrait-two',
     src: portraitTwo,
-    alt: 'Retrato de archivo',
+    alt: 'El Negro Olivera',
     text: 'EL NEGRO OLIVERA',
     className: 'hero-portrait--two',
   },
   {
     id: 'portrait-three',
     src: portraitThree,
-    alt: 'Retrato de archivo',
+    alt: 'Oscar Aredes',
     text: 'OSCAR AREDES',
     className: 'hero-portrait--three',
   },
@@ -92,7 +92,6 @@ export default function Hero() {
           <figure
             key={portrait.id}
             className={`hero-portrait ${portrait.className}`}
-            tabIndex={0}
           >
             <img
               src={portrait.src}

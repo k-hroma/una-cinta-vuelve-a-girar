@@ -28,6 +28,3 @@
   height: 18.8px;
 }
 
-.nav-menu-button:focus:not(:focus-visible) {
-  outline: none;
-}

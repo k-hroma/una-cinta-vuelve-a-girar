@@ -58,16 +58,16 @@
   border: 0;
   background: transparent;
   color: inherit;
-  font: var(--font-bootzyTM);
+  font-family: var(--font-bootzyTM);
   font-size: var(--small-font-size);
   line-height: 1;
   letter-spacing: 0.07em;
   cursor: pointer;
-  outline: none;
 }
 
 .ui-icon-text-button:focus-visible {
-  outline: none;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 
 .ui-icon-text-button .play-icon {

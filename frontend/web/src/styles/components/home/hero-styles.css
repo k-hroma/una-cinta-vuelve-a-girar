@@ -267,3 +267,17 @@
     left: -6%;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-caption,
+  .hero-overlay,
+  .hero-play-button {
+    transition: none;
+  }
+
+  .hero-play-button:hover,
+  .hero-play-button:focus-visible {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}

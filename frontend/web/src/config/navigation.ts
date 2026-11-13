@@ -229,8 +229,10 @@ export function derivePath(
 }
 
 //filter recorre el array y devuelve uno nuevo con los elementos que cumplen la condición. Devuelve PageModel[].
-export function getPublishedPages(): PageModel[] {
-  return pageModels.filter((page) => page.publicationStatus === 'published');
+export function getPublishedPages(): PublishedPage[] {
+  return pageModels.filter(
+    (page): page is PublishedPage => page.publicationStatus === 'published',
+  );
 }
 
 export function getDraftPages(): PageModel[] {
@@ -247,7 +249,9 @@ export function getSectionIntro(side: SiteSide): PageModel | undefined {
 
   if (sectionIntro) return sectionIntro; // si existe de las paginas publicadas, aquella que coincide con la seccion recibida y es intro, se devuelve
 
-  return publishedPages.find((page) => page.menuSection === side); // si no devuelve un array con las paginas en las que coincide el menuSection con "side" 
+  return publishedPages.find(
+    (page) => 'menuSection' in page && page.menuSection === side,
+  ); // si no devuelve un array con las paginas en las que coincide el menuSection con "side"
 
   //si no hay ninguna de las dos se devuelve undefined
 }
@@ -258,7 +262,7 @@ export function getSectionPages(side: SiteSide): PageModel[] {
   );
 }
 
-export function getPublishedContentRoutes(): PageModel[] {
+export function getPublishedContentRoutes(): PublishedPage[] {
   return getPublishedPages().filter(
     (page) => derivePath(page) !== HOME_PATH,
   );
