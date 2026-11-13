@@ -12,7 +12,7 @@ const WORD_ROWS = [
   'Perpetrar Sobreviviente Testigo',
 ];
 
-export default function GlosarioIndexPage() {
+export default function GlosarioIndex() {
   const glosarioPage = getPublishedPages().find(
     (page) => page.id === 'glosario',
   );

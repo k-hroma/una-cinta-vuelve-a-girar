@@ -3,12 +3,12 @@ import { derivePath, getPublishedPages } from '../../config/navigation';
 
 
 import cuantasMasacres from '../../assets/img/foto-cuantas-masacres.png';
-import cuantasMasacresRetrato from '../../assets/img/foto-willi.png';
+import cuantasMasacresRetrato from '../../assets/img/foto-willi-tratamiento.png';
 
 import '../../styles/components/home/masacres-showcase.css';
 
 
-export default function MasacresShowcase() {
+export default function MasacresShowCase() {
   const masacresNombrar = getPublishedPages().find(
     (page) => page.id === 'cuantas-masacres',
   );

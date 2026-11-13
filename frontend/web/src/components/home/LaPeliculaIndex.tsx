@@ -36,7 +36,7 @@ const sectionImages = {
   'mario-celestino': marioCelestinoImage,
 } satisfies Record<SectionId, string>;
 
-export default function LaPeliculaIndexPage() {
+export default function LaPeliculaIndex() {
   const [activeId, setActiveId] = useState<SectionId | null>(null);
 
   const publishedPages = getPublishedPages();

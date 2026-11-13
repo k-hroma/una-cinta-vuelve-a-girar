@@ -1,9 +1,9 @@
-import ElProyectoIndexPage from '../../components/home/ElProyectoIndexPage';
-import GlosarioIndexPage from '../../components/home/GlosarioIndexPage';
+import ElProyectoIndex from '../../components/home/ElProyectoIndex';
+import GlosarioIndex from '../../components/home/GlosarioIndex';
 import Hero from '../../components/home/Hero';
 import LadoBSection from '../../components/home/LadoBSection';
-import LaPeliculaIndexPage from '../../components/home/LaPeliculaIndexPage';
-import MasacresShowcase from '../../components/home/MasacresShowCase';
+import LaPeliculaIndex from '../../components/home/LaPeliculaIndex';
+import MasacresShowCase from '../../components/home/MasacresShowCase';
 
 
 
@@ -12,10 +12,10 @@ export default function HomePage() {
   return (
     <section>
       <Hero />
-      <LaPeliculaIndexPage />
-      <ElProyectoIndexPage />
-      <GlosarioIndexPage />
-      <MasacresShowcase />
+      <LaPeliculaIndex />
+      <ElProyectoIndex />
+      <GlosarioIndex />
+      <MasacresShowCase />
       <LadoBSection />
     </section>
   );

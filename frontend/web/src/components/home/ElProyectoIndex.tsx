@@ -1,6 +1,6 @@
 import '../../styles/components/home/el-proyecto-index-page.css';
 
-export default function ElProyectoIndexPage() {
+export default function ElProyectoIndex() {
   return (
     <section className="el-proyecto-home-section">
       <div className="text-container">
