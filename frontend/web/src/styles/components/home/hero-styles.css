@@ -1,22 +1,22 @@
 .hero-content {
   min-height: 0;
+  height: calc(100vh - 58.8px);        /* fallback para navegadores sin dvh */
   height: calc(100dvh - 58.8px);
-    max-height: 700px;
+  max-height: 700px;
 }
 
 .hero-img-container {
   position: relative;
   width: 100%;
   height: 100%;
-
   overflow: hidden;
-
   background-image: url("../../../assets/img/home-foto-ppal.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/* ───────── Texto ───────── */
 .hero-txt-container {
   position: relative;
   z-index: 1;
@@ -32,40 +32,40 @@
     calc(2rem + (100vw - 380px) * (68 / 1060)),
     13rem
   );
-  padding-inline: var(--gutter);
-
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
   pointer-events: none;
 }
 
 .hero-lado-a {
-  font-family: var(--font-bootzyTM);
-  font-size: var(--small-font-size); 
-  line-height: 75%;
-  letter-spacing: 0.07em;
-  background-color: var(--yellow);
   align-self: flex-start;
+  width: -moz-fit-content;
   width: fit-content;
   padding: var(--space-1);
+  font-family: var(--font-bootzyTM);
+  font-size: var(--small-font-size);
+  line-height: 0.75;
+  letter-spacing: 0.07em;
+  background-color: var(--yellow);
 }
 
 .hero-title {
+  margin-top: var(--space-8);
+  margin-right: clamp(0rem, (100vw - 380px) * (160 / 1060), 10rem);
   font-size: clamp(
     8.75rem,
     calc(8.75rem + (100vw - 380px) * (50 / 1060)),
     var(--xx-super-large-font-size)
   );
   font-weight: 400;
+  line-height: 0.65;
+  letter-spacing: 0.04em;
   color: var(--yellow);
-  line-height: 65%;
-  letter-spacing: 4%;
-  margin-top: var(--space-8);
-  margin-right: clamp(0rem, (100vw - 380px) * (160 / 1060), 10rem);
 }
 
-
 .hero-sub-title {
-  white-space: nowrap;
   margin-top: var(--space-6);
+  white-space: nowrap;
   color: var(--yellow);
   line-height: 1;
   letter-spacing: clamp(
@@ -80,9 +80,7 @@
   );
 }
 
-
-/* Retratos */
-
+/* ───────── Retratos ───────── */
 .hero-portrait {
   position: absolute;
   z-index: 0;
@@ -90,7 +88,6 @@
   height: auto;
   margin: 0;
   cursor: default;
-
 }
 
 .hero-portrait-image {
@@ -101,43 +98,39 @@
 }
 
 /* Leyenda oculta hasta hover o foco de teclado */
-
 .hero-portrait-caption {
   position: absolute;
-  top:1.3rem;
-  right: -3rem;;
+  top: 1.3rem;
+  right: -3rem;
   z-index: 1;
-  font-family: var(--font-apercuMono);
-  color: var(--black);
-  font-size: 0.75rem;
-  line-height: 1;
-  letter-spacing: -2%;
-  white-space: nowrap;
-
-  background-color: var(--yellow);
-  align-self: flex-start;
+  width: -moz-fit-content;
   width: fit-content;
   padding: var(--space-1);
+  font-family: var(--font-apercuMono);
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--black);
+  background-color: var(--yellow);
   opacity: 0;
   transition: opacity 180ms ease;
 }
 
 .hero-portrait:hover .hero-portrait-caption,
-.hero-portrait:focus-visible .hero-portrait-caption {
+.hero-portrait:focus .hero-portrait-caption {
   opacity: 1;
 }
 
 /* Posiciones iniciales basadas en tu captura */
-
 .hero-portrait--one {
   top: 14%;
-  left: 50.03em;
+  left: 53%;
 }
 
 .hero-portrait--two {
   top: 49%;
-  left: 70.03em;
-
+  left: 73%;
 }
 
 .hero-portrait--three {
@@ -145,10 +138,100 @@
   left: 14%;
 }
 
-/* Tablet */
+/* ───────── Overlay (hover del botón Play) ───────── */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;                            /* sobre foto, retratos y texto; bajo el botón */
+  background-color: rgba(0, 0, 0, 0.45); /* ajustá la opacidad a tu diseño */
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;                  /* no bloquea clics ni hover de lo de abajo */
+}
+
+.hero-overlay--active {
+  opacity: 1;
+}
+
+/* ───────── Botón Play ───────── */
+.hero-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Siempre 50x50: flex: none evita que se deforme en pantallas chicas */
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  /* Oculto al cargar */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease, -webkit-transform 180ms ease;
+  transition: opacity 250ms ease, transform 180ms ease;
+}
+
+/* Visible cuando el mouse está en la zona central, o con hover/foco del botón */
+.hero-play-button--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-play-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-play-button:focus {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+.hero-play-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Zoom solo en dispositivos con hover real */
+@media (hover: hover) {
+  .hero-play-button:hover {
+    -webkit-transform: translate(-50%, -50%) scale(1.08);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+.hero-play-button:focus-visible {
+  -webkit-transform: translate(-50%, -50%) scale(1.08);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Táctil: no hay hover, así que el botón queda siempre visible */
+@media (hover: none) {
+  .hero-play-button {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ───────── Tablet ───────── */
 @media (max-width: 1024px) {
   .hero-portrait--one {
-    top: 0.03em;
+    top: 3%;
     left: 26%;
   }
 
@@ -163,26 +246,24 @@
   }
 }
 
-
-@media(max-width: 480px) {
-.hero-title-agirar {
-  white-space: nowrap;
+/* ───────── Mobile ───────── */
+@media (max-width: 480px) {
+  .hero-title-agirar {
+    white-space: nowrap;
   }
-  
-.hero-portrait--one {
-  top: -0.03em;
-  left: 10%;
-}
 
-.hero-portrait--two {
-  top: 19%;
-  left: 76%;
+  .hero-portrait--one {
+    top: -3%;
+    left: 10%;
+  }
 
-}
+  .hero-portrait--two {
+    top: 19%;
+    left: 76%;
+  }
 
-.hero-portrait--three {
-  bottom: -0.03em;
-  left: -6%;
-}
-
+  .hero-portrait--three {
+    bottom: -3%;
+    left: -6%;
+  }
 }

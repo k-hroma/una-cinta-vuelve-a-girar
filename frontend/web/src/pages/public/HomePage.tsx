@@ -3,7 +3,7 @@ import GlosarioIndexPage from '../../components/home/GlosarioIndexPage';
 import Hero from '../../components/home/Hero';
 import LadoBSection from '../../components/home/LadoBSection';
 import LaPeliculaIndexPage from '../../components/home/LaPeliculaIndexPage';
-import MasacresShowcase from '../../components/home/MasacresShowCaseIndexPage';
+import MasacresShowcase from '../../components/home/MasacresShowCase';
 
 
 

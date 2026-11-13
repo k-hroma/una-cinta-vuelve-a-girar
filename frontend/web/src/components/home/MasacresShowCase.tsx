@@ -1,13 +1,11 @@
 import { Link } from 'react-router';
 import { derivePath, getPublishedPages } from '../../config/navigation';
 
-// TODO: ajustá las rutas de los assets
+
 import cuantasMasacres from '../../assets/img/foto-cuantas-masacres.png';
 import cuantasMasacresRetrato from '../../assets/img/foto-willi.png';
 
 import '../../styles/components/home/masacres-showcase.css';
-
-// TODO: ajustá los links
 
 
 export default function MasacresShowcase() {
