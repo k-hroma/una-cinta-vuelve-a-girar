@@ -73,7 +73,6 @@ export default function NavBar() {
           onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
           onMouseEnter={() => setIsMenuHovered(true)}
           onMouseLeave={() => setIsMenuHovered(false)}
-          onFocus={() => setIsMenuHovered(true)}
           onBlur={() => setIsMenuHovered(false)}
         >
           {isMenuOpen ? 'Cerrar' : 'Menú'}

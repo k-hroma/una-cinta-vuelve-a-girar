@@ -31,18 +31,53 @@
   background-color: var(--black);
 }
 
-.la-pelicula-page__controls {
+.la-pelicula-page__controls-zone {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1;
+  height: 120px;
+}
+
+.la-pelicula-page__controls {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--beige);
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.la-pelicula-page__controls--visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.la-pelicula-page__timeline {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4) var(--gutter);
+  min-width: 0;
+  padding: var(--space-2) var(--gutter);
+  letter-spacing: 0.07em;
+  pointer-events: auto;
+}
+
+.la-pelicula-page__action-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0 var(--gutter) var(--space-4);
   background: linear-gradient(transparent, rgb(0 0 0 / 0.85));
-  color: var(--beige);
+  pointer-events: auto;
 }
 
 .la-pelicula-page__control-button {
@@ -64,6 +99,7 @@
 }
 
 .la-pelicula-page__fullscreen-button {
+  margin-left: auto;
   width: 45px;
   height: 45px;
   color: var(--yellow);
@@ -71,19 +107,59 @@
   line-height: 1;
 }
 
-.la-pelicula-page__control-button:focus-visible,
-.la-pelicula-page__seek:focus-visible {
-  outline: 2px solid var(--yellow);
-  outline-offset: 3px;
+.la-pelicula-page__volume-control {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
 }
 
-.la-pelicula-page__timeline {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: var(--space-3);
-  min-width: 0;
-  letter-spacing: 0.07em;
+.la-pelicula-page__volume-button {
+  width: 32px;
+  height: 45px;
+  color: var(--yellow);
+}
+
+.la-pelicula-page__volume-icon {
+  display: block;
+  width: 25px;
+  height: 25px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.la-pelicula-page__volume-slider {
+  display: block;
+  width: clamp(64px, 9vw, 110px);
+  height: 2px;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    rgb(220 220 220 / 0.8) var(--range-progress),
+    rgb(220 220 220 / 0.35) var(--range-progress)
+  );
+  cursor: pointer;
+}
+
+.la-pelicula-page__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.la-pelicula-page__control-button:focus-visible,
+.la-pelicula-page__seek:focus-visible,
+.la-pelicula-page__volume-slider:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
 }
 
 .la-pelicula-page__time {
@@ -95,18 +171,68 @@
 .la-pelicula-page__seek {
   width: 100%;
   min-width: 0;
-  accent-color: var(--yellow);
+  height: 3px;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    rgb(220 220 220 / 0.8) var(--range-progress),
+    rgb(220 220 220 / 0.35) var(--range-progress)
+  );
   cursor: pointer;
 }
 
+.la-pelicula-page__seek::-webkit-slider-runnable-track {
+  height: 3px;
+  background: transparent;
+}
+
+.la-pelicula-page__seek::-moz-range-track {
+  height: 3px;
+  background: transparent;
+}
+
+.la-pelicula-page__volume-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+}
+
+.la-pelicula-page__volume-slider::-moz-range-track {
+  height: 2px;
+  background: transparent;
+}
+
+.la-pelicula-page__seek::-webkit-slider-thumb,
+.la-pelicula-page__volume-slider::-webkit-slider-thumb {
+  width: 0;
+  height: 0;
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+.la-pelicula-page__seek::-moz-range-thumb,
+.la-pelicula-page__volume-slider::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  border: 0;
+  background: transparent;
+}
+
 @media (max-width: 480px) {
-  .la-pelicula-page__controls {
-    flex-wrap: wrap;
+  .la-pelicula-page__controls-zone {
+    height: 110px;
+  }
+
+  .la-pelicula-page__action-controls {
     gap: var(--space-2);
     padding: var(--space-3) var(--space-4);
   }
 
   .la-pelicula-page__timeline {
-    flex-basis: 100%;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .la-pelicula-page__volume-slider {
+    width: 72px;
   }
 }
