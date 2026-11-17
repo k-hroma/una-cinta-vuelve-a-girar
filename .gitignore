@@ -1,0 +1,6 @@
+# Variables de entorno locales (cada persona tiene la suya).
+.env
+.env.*
+
+# Excepción: el ejemplo sí se versiona.
+!.env.example
