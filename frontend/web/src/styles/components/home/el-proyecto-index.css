@@ -33,7 +33,7 @@
 }
 
 .description-el-proyect-index {
-  font-size: clamp(2rem, 1.2rem + 2vw, var(--large-font-size));
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.25rem);
   letter-spacing: 0.07em;
   margin-bottom: clamp(var(--space-16), calc(1rem + 4vw), var(--space-48));
 }

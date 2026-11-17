@@ -57,7 +57,6 @@
 
 .masacres-showcase__media--placeholder {
   background-color: var(--yellow);
-  border: var(--black) solid 2px;
 }
 
 .masacres-showcase__title {
@@ -69,6 +68,18 @@
   letter-spacing: 0.07em;
   text-wrap: balance;
   margin-top: var(--space-3); 
+}
+
+.masacres-showcase__title_first {
+  width: 80%;
+  font-family: var(--font-bootzyTM);
+  font-size: clamp(1.5rem, calc(1.5rem + (100vw - 380px) * 0.00177), var(--medium-font-size));
+  font-weight: 400;
+  line-height: 90%;
+  letter-spacing: 0.07em;
+  text-wrap: balance;
+  margin-top: var(--space-3); 
+  text-shadow: 0px 0px 10px rgba(0, 0, 0);
 }
 
 /* ───────── Botón "Ver +" ───────── */

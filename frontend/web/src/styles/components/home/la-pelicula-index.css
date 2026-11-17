@@ -109,7 +109,19 @@
   line-height: 1;
   font-weight: 400;
   letter-spacing: 0.06em;
+  color: var(--beige);
+  text-decoration: none;
   transition: color 180ms ease;
+}
+
+.film-index__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.film-index__item:has(.film-index__title:hover) .film-index__link,
+.film-index__item:has(.film-index__link:hover) .film-index__title {
+  color: var(--yellow);
 }
 
 .film-index__title--active {

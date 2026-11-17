@@ -56,13 +56,13 @@ export default function LadoBSection() {
             return (
               <li key={page.id} className="lado-b-section__item">
                 <div className="lado-b-section__item-header">
-                  <h3 className="lado-b-section__item-title">{page.title}</h3>
                   <Link
                     to={derivePath(page)}
                     className="lado-b-section__item-link"
                     aria-label={`Ver ${page.title}`}
                   >
-                    Ver +
+                    <h3 className="lado-b-section__item-title">{page.title}</h3>
+                    <span className="lado-b-section__item-action">Ver +</span>
                   </Link>
                 </div>
 

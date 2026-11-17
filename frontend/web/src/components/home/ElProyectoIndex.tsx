@@ -1,4 +1,4 @@
-import '../../styles/components/home/el-proyecto-index-page.css';
+import '../../styles/components/home/el-proyecto-index.css';
 
 export default function ElProyectoIndex() {
   return (

@@ -9,7 +9,7 @@ import {
   laPeliculaSections,
 } from '../../content/laPelicula';
 
-import '../../styles/components/home/la-pelicula-index-page.css';
+import '../../styles/components/home/la-pelicula-index.css';
 
 type SectionId = (typeof laPeliculaSectionIds)[number];
 
@@ -18,7 +18,6 @@ export default function LaPeliculaIndex() {
 
   const publishedPages = getPublishedPages();
 
-  const filmPage = publishedPages.find((page) => page.id === 'la-pelicula');
 
   const sections = laPeliculaSectionIds.flatMap((id) => {
     const page = publishedPages.find((item) => item.id === id);
@@ -50,12 +49,9 @@ export default function LaPeliculaIndex() {
           />
         ))}
       </div>
-
-      {filmPage && (
-        <Link to={derivePath(filmPage)} className="film-index__eyebrow">
-          [ La película ]
-        </Link>
-      )}
+      <p className="film-index__eyebrow">
+        [ La película ]
+      </p>
 
       <nav
         className="film-index__navigation"
@@ -65,17 +61,21 @@ export default function LaPeliculaIndex() {
           <article
             className="film-index__item"
             key={section.id}
-            onFocus={() => setActiveId(section.id)}
-            onBlur={() => setActiveId(null)}
           >
             <div className="film-index__content">
-              <h2
-                className={`film-index__title${activeId === section.id ? ' film-index__title--active' : ''
-                  }`}
-                onMouseEnter={() => setActiveId(section.id)}
-                onMouseLeave={() => setActiveId(null)}
-              >
-                {section.title}
+              <h2 className="film-index__heading">
+                <Link
+                  to={section.to}
+                  className={`film-index__title${activeId === section.id ? ' film-index__title--active' : ''
+                    }`}
+                  onMouseEnter={() => setActiveId(section.id)}
+                  onMouseLeave={() => setActiveId(null)}
+                  onFocus={() => setActiveId(section.id)}
+                  onBlur={() => setActiveId(null)}
+                  aria-label={section.title}
+                >
+                  {section.title}
+                </Link>
               </h2>
 
               <p className="film-index__description">{section.description}</p>

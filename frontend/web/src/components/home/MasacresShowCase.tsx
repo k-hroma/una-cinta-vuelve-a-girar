@@ -36,7 +36,7 @@ export default function MasacresShowCase() {
             className="masacres-showcase__media masacres-showcase__media--placeholder"
             aria-hidden="true"
           />
-          <h2 className="masacres-showcase__title">
+          <h2 className="masacres-showcase__title_first">
             Cuántas masacres podemos nombrar
           </h2>
           <Link
