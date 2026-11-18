@@ -68,7 +68,12 @@ export const pagina = defineType({
           
           return hasDuplicates ? 'tag repetido' : true;
         }),
-}),
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO y vista previa al compartir',
+      type: 'seo',
+    }),
   ],
   preview: {
     select: { pageId: 'pageId' },
