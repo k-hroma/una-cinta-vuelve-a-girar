@@ -47,6 +47,28 @@ export const pagina = defineType({
         'Texto breve sobre la página. Se muestra en los índices del sitio, por ejemplo en la home. Escribirlo como un solo párrafo.',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+      description:
+        'Palabras clave de la página, por ejemplo: fotos, videos, documentos. Escribir una y apretar Enter. Es opcional.',
+      validation: (rule) => 
+        rule.custom((tags) => {
+          if (!tags) return true; // Si no hay tags, la validación pasa
+          
+          // Verificamos si hay duplicados comparando el índice de la primera aparición
+          const hasDuplicates = tags.some(
+            (tag, index) => tags.indexOf(tag) !== index
+          );
+          
+          return hasDuplicates ? 'tag repetido' : true;
+        }),
+}),
   ],
   preview: {
     select: { pageId: 'pageId' },
