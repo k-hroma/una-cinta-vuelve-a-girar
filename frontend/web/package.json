@@ -11,7 +11,8 @@
     "check": "npm run lint && npm run typecheck",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:cms": "vitest run --mode cms src/services/sanity/paginas.cms.test.ts"
   },
   "dependencies": {
     "@sanity/client": "^8.16.0",
