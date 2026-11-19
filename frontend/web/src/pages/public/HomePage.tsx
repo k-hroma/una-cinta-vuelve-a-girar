@@ -17,7 +17,7 @@ export default function HomePage() {
       <ElProyectoIndex />
       <GlosarioIndex />
       <MasacresShowCase />
-      <LadoBSection />
+      <LadoBSection pages={pages} />
     </section>
   );
 }

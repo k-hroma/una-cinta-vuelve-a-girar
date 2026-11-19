@@ -5,8 +5,8 @@ export type LadoBPageId = Extract<
   { section: 'b'; kind: 'page' }
 >['id'];
 
-type PageExtra = { description: string; tags: string };
-
+// Orden en que se muestran las tarjetas del Lado B en la home (decisión de diseño, no del CMS).
+// El texto y los tags de cada tarjeta ya no están acá: vienen del CMS (ver services/).
 export const ladoBOrder = [
   'las-madres',
   'la-prensa',
@@ -18,6 +18,7 @@ export const ladoBOrder = [
   'organizarse',
 ] as const satisfies readonly LadoBPageId[];
 
+/*
 export const ladoBPageExtras = {
   'los-hechos': {
     description: 'Breve descripción. Lorem ipsum, delito la persona',
@@ -52,3 +53,4 @@ export const ladoBPageExtras = {
     tags: 'fotos, videos, etc.',
   },
 } satisfies Record<LadoBPageId, PageExtra>;
+*/
