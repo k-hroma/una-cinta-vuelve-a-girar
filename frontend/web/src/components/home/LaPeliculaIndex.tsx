@@ -8,12 +8,17 @@ import {
   laPeliculaSectionIds,
   laPeliculaSections,
 } from '../../content/laPelicula';
+import type { PagesById } from '../../types/pagina';
 
 import '../../styles/components/home/la-pelicula-index-page.css';
 
 type SectionId = (typeof laPeliculaSectionIds)[number];
 
-export default function LaPeliculaIndex() {
+type LaPeliculaIndexProps = {
+  pages: PagesById;
+};
+
+export default function LaPeliculaIndex({ pages }: LaPeliculaIndexProps) {
   const [activeId, setActiveId] = useState<SectionId | null>(null);
 
   const publishedPages = getPublishedPages();
@@ -30,7 +35,7 @@ export default function LaPeliculaIndex() {
         ...page,
         id,
         to: derivePath(page),
-        description: laPeliculaSections[id].description,
+        description: pages[id].summary,
         image: laPeliculaSections[id].image,
       },
     ];
@@ -78,7 +83,9 @@ export default function LaPeliculaIndex() {
                 {section.title}
               </h2>
 
-              <p className="film-index__description">{section.description}</p>
+              {section.description && (
+                <p className="film-index__description">{section.description}</p>
+              )}
             </div>
 
             <Link
