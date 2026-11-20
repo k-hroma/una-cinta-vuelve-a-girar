@@ -7,6 +7,7 @@ const docVigilar: PaginaDoc = {
   pageId: 'vigilar',
   resumen: 'Texto de vigilar',
   tags: ['fotos', 'videos'],
+  descripcionProyecto: null,
   seoTitulo: null,
   seoDescripcion: null,
   seoImagenUrl: null,

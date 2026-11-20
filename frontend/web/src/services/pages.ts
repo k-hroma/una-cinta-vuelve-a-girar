@@ -1,5 +1,4 @@
-/**Rol: lo básico que comparten todas las implementaciones del servicio de páginas: 
- * la lista de páginas publicadas y cómo se ve una página vacía. Sale de navigation.ts, no depende de ningún CMS. */
+/**Rol: lo básico que comparten todas las implementaciones del servicio de páginas: la lista de páginas publicadas y cómo se ve una página vacía. Sale de navigation.ts, no depende de ningún CMS. */
 import { pageModels, type PublishedPage } from '../config/navigation';
 import type { PageData, PageId, PagesById } from '../types/pagina';
 
@@ -25,6 +24,7 @@ export function createEmptyPage(id: PageId): PageData {
     isPublished: false,
     summary: '',
     tags: [],
+    projectDescription: [],
     seo: { title: null, description: null, imageUrl: null },
   };
 }

@@ -11,6 +11,7 @@ function doc(
   return {
     resumen: null,
     tags: null,
+    descripcionProyecto: null,
     seoTitulo: null,
     seoDescripcion: null,
     seoImagenUrl: null,
@@ -39,6 +40,7 @@ describe('mapPaginas', () => {
       isPublished: false,
       summary: '',
       tags: [],
+      projectDescription: [],
       seo: { title: null, description: null, imageUrl: null },
     });
   });
@@ -60,12 +62,97 @@ describe('mapPaginas', () => {
       isPublished: true,
       summary: 'Texto de vigilar',
       tags: ['fotos', 'videos'],
+      projectDescription: [],
       seo: {
         title: 'Vigilar | Una cinta vuelve a girar',
         description: 'Descripción para buscadores',
         imageUrl: 'https://cdn.sanity.io/images/abc/production/foto-1200x630.jpg',
       },
     });
+  });
+
+  it('traduce la descripción del proyecto a párrafos, marcando solo lo subrayado', () => {
+    const result = mapPaginas([
+      doc({
+        pageId: 'home',
+        descripcionProyecto: [
+          {
+            _type: 'block',
+            children: [
+              { _type: 'span', text: 'Proyecto sobre la película ', marks: [] },
+              {
+                _type: 'span',
+                text: 'Budge pregunta, seguirá preguntando',
+                marks: ['underline'],
+              },
+              { _type: 'span', text: ' (1987).', marks: null },
+            ],
+          },
+        ],
+      }),
+    ]);
+
+    expect(result['home'].projectDescription).toEqual([
+      [
+        { text: 'Proyecto sobre la película ', underline: false },
+        { text: 'Budge pregunta, seguirá preguntando', underline: true },
+        { text: ' (1987).', underline: false },
+      ],
+    ]);
+  });
+
+  it('conserva un párrafo por cada bloque y no pierde los espacios entre tramos', () => {
+    const result = mapPaginas([
+      doc({
+        pageId: 'home',
+        descripcionProyecto: [
+          { _type: 'block', children: [{ _type: 'span', text: 'Primero. ', marks: [] }] },
+          { _type: 'block', children: [{ _type: 'span', text: 'Segundo.', marks: [] }] },
+        ],
+      }),
+    ]);
+
+    expect(result['home'].projectDescription).toEqual([
+      [{ text: 'Primero. ', underline: false }],
+      [{ text: 'Segundo.', underline: false }],
+    ]);
+  });
+
+  it('ignora cualquier marca que no sea subrayado y descarta lo que no tiene forma de texto', () => {
+    const result = mapPaginas([
+      doc({
+        pageId: 'home',
+        descripcionProyecto: [
+          {
+            _type: 'block',
+            children: [
+              { _type: 'span', text: 'cursiva', marks: ['em'] },
+              { _type: 'span', text: 'negrita', marks: ['strong'] },
+              { _type: 'span', text: '', marks: ['underline'] },
+              { _type: 'image', text: 'no es un tramo de texto', marks: null },
+            ],
+          },
+          { _type: 'image', children: null },
+          { _type: 'block', children: null },
+          { _type: 'block', children: [{ _type: 'span', text: '', marks: [] }] },
+        ],
+      }),
+    ]);
+
+    expect(result['home'].projectDescription).toEqual([
+      [
+        { text: 'cursiva', underline: false },
+        { text: 'negrita', underline: false },
+      ],
+    ]);
+  });
+
+  it('usa una descripción vacía si el documento de la home no tiene el campo', () => {
+    const result = mapPaginas([doc({ pageId: 'home' })]);
+
+    expect(result['home'].isPublished).toBe(true);
+    expect(result['home'].summary).toBe('');
+    expect(result['home'].projectDescription).toEqual([]);
   });
 
   it('normaliza valores nulos, espacios sobrantes y textos vacíos', () => {

@@ -14,7 +14,7 @@ export default function HomePage() {
     <section>
       <Hero />
       <LaPeliculaIndex pages={pages} />
-      <ElProyectoIndex />
+      <ElProyectoIndex projectDescription={pages.home.projectDescription} />
       <GlosarioIndex />
       <MasacresShowCase />
       <LadoBSection pages={pages} />

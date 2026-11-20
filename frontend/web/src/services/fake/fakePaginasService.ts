@@ -22,7 +22,7 @@ const paginasIndiceLaPelicula: PageId[] = [
   'mario-celestino',
 ];
 
-/** Datos de ejemplo: las 11 páginas que hoy muestran texto en la home tienen contenido; el resto queda vacío, como en el CMS real. */
+/** Datos de ejemplo: las 11 páginas que muestran su resumen en la home y la propia home tienen contenido; el resto queda vacío, como en el CMS real. */
 export function createFakePaginas(): PagesById {
   const pages = createEmptyPages();
 
@@ -32,9 +32,23 @@ export function createFakePaginas(): PagesById {
       isPublished: true,
       summary: `Resumen de prueba de ${id}`,
       tags: paginasLadoB.includes(id) ? ['fotos', 'videos'] : [],
+      projectDescription: [],
       seo: { title: null, description: null, imageUrl: null },
     };
   }
+
+  // La home no tiene resumen (no lo necesita) pero sí el texto de "El Proyecto", con el título de la película subrayado.
+  pages['home'] = {
+    ...pages['home'],
+    isPublished: true,
+    projectDescription: [
+      [
+        { text: 'Texto de prueba de El Proyecto sobre la película ', underline: false },
+        { text: 'Budge pregunta, seguirá preguntando', underline: true },
+        { text: ' (1987, Argentina).', underline: false },
+      ],
+    ],
+  };
 
   pages['la-prensa'] = {
     ...pages['la-prensa'],

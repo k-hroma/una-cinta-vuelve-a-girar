@@ -11,6 +11,15 @@ export type PageSeo = {
   imageUrl: string | null;
 };
 
+/** Un tramo de texto dentro de un párrafo. `underline` indica si va subrayado. */
+export type TextFragment = {
+  text: string;
+  underline: boolean;
+};
+
+/** Un párrafo de texto enriquecido: una lista de tramos, en orden. */
+export type RichParagraph = TextFragment[];
+
 /** Contenido editorial de una página, tal como lo usan los componentes. */
 export type PageData = {
   id: PageId;
@@ -20,6 +29,8 @@ export type PageData = {
   summary: string;
   /** Palabras clave. Lista vacía si no hay. */
   tags: string[];
+  /** Texto de la sección "El Proyecto" de la home, párrafo por párrafo. Lista vacía si no hay. */
+  projectDescription: RichParagraph[];
   seo: PageSeo;
 };
 

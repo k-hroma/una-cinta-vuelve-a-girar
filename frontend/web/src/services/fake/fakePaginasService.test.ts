@@ -28,6 +28,17 @@ describe('createFakePaginasService', () => {
     expect(pages['mario-celestino'].tags).toEqual([]);
   });
 
+  it('la home trae el texto de El Proyecto con el título subrayado y sin resumen', async () => {
+    const pages = await createFakePaginasService().getPaginas();
+
+    expect(pages['home'].isPublished).toBe(true);
+    expect(pages['home'].summary).toBe('');
+    expect(pages['home'].projectDescription).toHaveLength(1);
+    expect(
+      pages['home'].projectDescription[0].filter((fragment) => fragment.underline),
+    ).toEqual([{ text: 'Budge pregunta, seguirá preguntando', underline: true }]);
+  });
+
   it('permite inyectar datos propios para un caso puntual', async () => {
     const custom = createFakePaginas();
     custom['vigilar'] = { ...custom['vigilar'], summary: 'Texto a medida' };
