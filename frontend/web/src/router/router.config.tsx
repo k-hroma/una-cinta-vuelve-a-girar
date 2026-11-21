@@ -12,7 +12,9 @@ import {
   getPublishedContentRoutes,
   getPublishedPages,
 } from '../config/navigation';
+import LoadingSpinner from '../common/LoadingSpinner';
 import RootLayout from '../layout/RootLayout';
+import { homeLoader } from '../pages/public/homeLoader';
 import NotFoundPage from '../pages/public/NotFoundPage';
 import RouteErrorPage from '../pages/public/RouteErrorPage';
 
@@ -67,6 +69,11 @@ const lazyPagesById: Record<PublishedPage['id'], ComponentType> = {
   'los-chicos-muertos': LosChicosMuertosPage,
 
 };
+
+// Se muestra en la home mientras el loader pide el contenido al CMS. Sin esto, la página queda en blanco (sin menú) hasta que llega la respuesta.
+function HomeHydrateFallback() {
+  return <LoadingSpinner fullScreen={false} text="Cargando" />;
+}
 
 // Recibe un id, busca el componente en el diccionario y devuelve <Page />, es decir, el elemento listo para poner en una ruta.
 function pageElement(id: PublishedPage['id']) {
@@ -165,6 +172,8 @@ export const routes: RouteObject[] = [
           {
             index: true,
             element: pageElement(homeRoute.id),
+            loader: homeLoader,
+            HydrateFallback: HomeHydrateFallback,
           },
           ...buildSideRoutes(),
           {

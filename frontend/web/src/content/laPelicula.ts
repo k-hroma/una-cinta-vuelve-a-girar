@@ -11,20 +11,15 @@ export const laPeliculaSectionIds = [
 
 type LaPeliculaSectionId = (typeof laPeliculaSectionIds)[number];
 
+// El texto de cada sección (la descripción) ya no está acá: viene del CMS (ver services/).
 export const laPeliculaSections = {
   'volver-a-ver': {
-    description:
-      'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
     image: volverAVerImage,
   },
   'la-cinta-y-el-soporte': {
-    description:
-      'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
     image: cintaSoporteImage,
   },
   'mario-celestino': {
-    description:
-      'palabras específicas, términos legales o nombres claves relacionados con La Masacre de Ingeniero Budge',
     image: marioCelestinoImage,
   },
-} satisfies Record<LaPeliculaSectionId, { description: string; image: string }>;
+} satisfies Record<LaPeliculaSectionId, { image: string }>;

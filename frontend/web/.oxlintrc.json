@@ -3,13 +3,34 @@
   "plugins": ["react", "typescript", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@sanity/*", "groq", "next-sanity"],
+            "message": "Sanity solo se usa dentro de src/services/. Los componentes piden datos a través de los servicios."
+          },
+          {
+            "group": ["**/config/env", "**/config/env.ts"],
+            "message": "Las variables de entorno de Sanity solo se leen desde src/services/."
+          }
+        ]
+      }
+    ]
   },
   "overrides": [
     {
       "files": ["src/router/router.config.tsx"],
       "rules": {
         "react/only-export-components": "off"
+      }
+    },
+    {
+      "files": ["src/services/**"],
+      "rules": {
+        "no-restricted-imports": "off"
       }
     }
   ]

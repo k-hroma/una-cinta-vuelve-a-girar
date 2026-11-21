@@ -5,8 +5,8 @@ export type LadoBPageId = Extract<
   { section: 'b'; kind: 'page' }
 >['id'];
 
-type PageExtra = { description: string; tags: string };
-
+// Orden en que se muestran las tarjetas del Lado B en la home (decisión de diseño, no del CMS).
+// El texto y los tags de cada tarjeta ya no están acá: vienen del CMS (ver services/).
 export const ladoBOrder = [
   'las-madres',
   'la-prensa',
@@ -17,38 +17,3 @@ export const ladoBOrder = [
   'vigilar',
   'organizarse',
 ] as const satisfies readonly LadoBPageId[];
-
-export const ladoBPageExtras = {
-  'los-hechos': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  'lo-que-escucharon': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  vigilar: {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  organizarse: {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, textos, documentos, etc.',
-  },
-  'las-pericias': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  'la-prensa': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  'las-madres': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-  'los-chicos-muertos': {
-    description: 'Breve descripción. Lorem ipsum, delito la persona',
-    tags: 'fotos, videos, etc.',
-  },
-} satisfies Record<LadoBPageId, PageExtra>;
