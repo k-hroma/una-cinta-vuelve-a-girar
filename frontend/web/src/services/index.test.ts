@@ -17,10 +17,11 @@ describe('paginasService (servicio real)', () => {
   it('al pedir páginas sin variables de entorno falla con un mensaje claro', async () => {
     vi.stubEnv('VITE_SANITY_PROJECT_ID', '');
 
-    const { paginasService } = await import('./index');
+    const { ContentUnavailableError, paginasService } = await import('./index');
 
-    await expect(paginasService.getPaginas()).rejects.toThrow(
-      'VITE_SANITY_PROJECT_ID',
-    );
+    const rechazo = paginasService.getPaginas();
+
+    await expect(rechazo).rejects.toBeInstanceOf(ContentUnavailableError);
+    await expect(rechazo).rejects.toThrow('VITE_SANITY_PROJECT_ID');
   });
 });

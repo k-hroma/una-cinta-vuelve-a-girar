@@ -2,6 +2,7 @@
 import type { PaginasService } from './paginasService';
 import { createSanityPaginasService } from './sanity/sanityPaginasService';
 
+export { ContentUnavailableError } from './errors';
 export type { PaginasService } from './paginasService';
 
 /** Servicio real, respaldado por Sanity. El cliente se carga recién en la primera consulta, así importar este archivo no exige las variables de entorno. */
