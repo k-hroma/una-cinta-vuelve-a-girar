@@ -22,7 +22,7 @@
   },
   "overrides": [
     {
-      "files": ["src/router/router.config.tsx"],
+      "files": ["src/router/router.config.tsx", "src/root.tsx"],
       "rules": {
         "react/only-export-components": "off"
       }
