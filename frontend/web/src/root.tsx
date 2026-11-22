@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 import faviconUrl from './assets/icons/nav-bar-play.svg';
 import RootLayout from './layout/RootLayout';
+import RouteErrorPage from './pages/public/RouteErrorPage';
 
 import './styles/index.css';
 import './styles/fonts.css';
@@ -40,4 +41,9 @@ export function Layout({ children }: { children: ReactNode }) {
 /** Lo que va dentro del <body>: menú, contenido de la página y pie. */
 export default function Root() {
   return <RootLayout />;
+}
+
+/** Último recurso: si falla el propio layout (menú o pie), se muestra el error sin ellos. Los errores de las páginas los atrapa PagesLayout. */
+export function ErrorBoundary() {
+  return <RouteErrorPage />;
 }

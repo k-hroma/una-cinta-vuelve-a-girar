@@ -1,5 +1,5 @@
 /**Rol: lista de rutas del sitio para React Router (modo framework). Las URLs salen de navigation.ts; acá solo se dice qué archivo muestra cada página. Si se publica una página nueva en navigation.ts, TypeScript obliga a registrar su archivo. */
-import { index, route, type RouteConfig } from '@react-router/dev/routes';
+import { index, layout, route, type RouteConfig } from '@react-router/dev/routes';
 import {
   derivePath,
   getPublishedPages,
@@ -37,11 +37,14 @@ if (!homePage) {
 }
 
 export default [
-  index(pageFileById[homePage.id]),
-  ...publishedPages
-    .filter((page) => page.id !== homePage.id)
-    // derivePath devuelve '/lado-a/la-pelicula'; las rutas de React Router van sin la barra inicial.
-    .map((page) => route(derivePath(page).slice(1), pageFileById[page.id])),
-  // Cualquier otra dirección: página 404.
-  route('*', 'pages/public/NotFoundPage.tsx'),
+  // Ruta sin dirección que envuelve todas las páginas: atrapa sus errores sin perder el menú (ver PagesLayout.tsx).
+  layout('layout/PagesLayout.tsx', [
+    index(pageFileById[homePage.id]),
+    ...publishedPages
+      .filter((page) => page.id !== homePage.id)
+      // derivePath devuelve '/lado-a/la-pelicula'; las rutas de React Router van sin la barra inicial.
+      .map((page) => route(derivePath(page).slice(1), pageFileById[page.id])),
+    // Cualquier otra dirección: página 404.
+    route('*', 'pages/public/NotFoundPage.tsx'),
+  ]),
 ] satisfies RouteConfig;
