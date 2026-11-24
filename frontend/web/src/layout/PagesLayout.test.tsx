@@ -10,22 +10,17 @@ import { describe, expect, it } from 'vitest';
 import { ContentUnavailableError } from '../services';
 import * as pagesLayout from './PagesLayout';
 
-/** Renderiza una página cuyo loader falla, dentro del layout real, como la vería el visitante. */
+/** Renderiza el layout real cuando su loader (el que trae el contenido del CMS) falla, como lo vería el visitante. */
 async function renderPageWithFailingLoader(error: Error) {
   const routes: RouteObject[] = [
     {
       path: '/',
+      loader: () => {
+        throw error;
+      },
       Component: pagesLayout.default,
       ErrorBoundary: pagesLayout.ErrorBoundary,
-      children: [
-        {
-          index: true,
-          loader: () => {
-            throw error;
-          },
-          Component: () => <p>CONTENIDO</p>,
-        },
-      ],
+      children: [{ index: true, Component: () => <p>CONTENIDO</p> }],
     },
   ];
   const handler = createStaticHandler(routes);
@@ -39,6 +34,12 @@ async function renderPageWithFailingLoader(error: Error) {
 }
 
 describe('PagesLayout', () => {
+  it('exporta el loader que trae el contenido, las etiquetas SEO y el límite de errores', () => {
+    expect(typeof pagesLayout.loader).toBe('function');
+    expect(typeof pagesLayout.meta).toBe('function');
+    expect(typeof pagesLayout.ErrorBoundary).toBe('function');
+  });
+
   it('si falla el contenido de una página, muestra el error con reintento en lugar de la página', async () => {
     const html = await renderPageWithFailingLoader(
       new ContentUnavailableError(new Error('sin conexión')),

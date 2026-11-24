@@ -45,22 +45,26 @@ describe('routes', () => {
     expect(actualPaths).toEqual(expectedPaths);
   });
 
-  it('envuelve todas las páginas en un layout que atrapa sus errores', () => {
-    expect(routes).toHaveLength(1);
+  it('envuelve las páginas del sitio en un layout sin dirección propia', () => {
     expect(routes[0].file).toBe('layout/PagesLayout.tsx');
     expect(routes[0].path).toBeUndefined();
-    expect(routes[0].children).toHaveLength(pageRoutes.length);
+    expect(routes[0].children).toHaveLength(getPublishedPages().length);
   });
 
-  it('usa la home como ruta índice y deja la página 404 al final', () => {
+  it('usa la home como ruta índice del layout', () => {
     const children = routes[0].children ?? [];
 
     expect(children[0].index).toBe(true);
     expect(children[0].file).toBe('pages/public/HomePage.tsx');
-    expect(children.at(-1)).toMatchObject({
+  });
+
+  it('deja la página 404 al final y fuera del layout, porque el layout tiene loader', () => {
+    expect(routes).toHaveLength(2);
+    expect(routes[1]).toMatchObject({
       path: '*',
       file: 'pages/public/NotFoundPage.tsx',
     });
+    expect(routes[1].children).toBeUndefined();
   });
 
   it('apunta siempre a archivos que existen', () => {

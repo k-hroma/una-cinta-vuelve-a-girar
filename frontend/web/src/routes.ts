@@ -37,14 +37,15 @@ if (!homePage) {
 }
 
 export default [
-  // Ruta sin dirección que envuelve todas las páginas: atrapa sus errores sin perder el menú (ver PagesLayout.tsx).
+  // Ruta sin dirección que envuelve todas las páginas: carga el contenido del CMS, arma sus etiquetas SEO y atrapa sus errores sin perder el menú (ver PagesLayout.tsx).
   layout('layout/PagesLayout.tsx', [
     index(pageFileById[homePage.id]),
     ...publishedPages
       .filter((page) => page.id !== homePage.id)
       // derivePath devuelve '/lado-a/la-pelicula'; las rutas de React Router van sin la barra inicial.
       .map((page) => route(derivePath(page).slice(1), pageFileById[page.id])),
-    // Cualquier otra dirección: página 404.
-    route('*', 'pages/public/NotFoundPage.tsx'),
   ]),
+  // Cualquier otra dirección: página 404. Va fuera del layout a propósito: con ssr:false, una ruta con loader
+  // solo puede usarse en direcciones que se pre-renderizan, y el 404 no es una dirección concreta.
+  route('*', 'pages/public/NotFoundPage.tsx'),
 ] satisfies RouteConfig;
