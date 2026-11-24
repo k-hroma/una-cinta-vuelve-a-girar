@@ -89,5 +89,6 @@ export function buildPageMeta(pages: PagesById, pathname: string): MetaDescripto
         ]
       : []),
     { name: 'twitter:card', content: image ? 'summary_large_image' : 'summary' },
+    { name: 'robots', content: 'noindex' },
   ];
 }
