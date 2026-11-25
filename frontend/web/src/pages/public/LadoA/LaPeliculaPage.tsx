@@ -7,10 +7,11 @@ import {
 } from 'react';
 import pausaIcon from '../../../assets/icons/nav-bar-pause.svg';
 import playIcon from '../../../assets/icons/nav-bar-play.svg';
+import { useHls } from '../../../hooks/useHls';
 
 import '../../../styles/pages/public/LadoA/la-pelicula-page.css';
 
-const videoUrl = import.meta.env.VITE_FILM_STREAM_URL;
+const hlsUrl = import.meta.env.VITE_FILM_HLS_URL;
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) return '00:00:00';
@@ -37,6 +38,9 @@ export default function LaPeliculaPage() {
   const controlsTimeoutRef = useRef<number | undefined>(undefined);
   const lastPointerTypeRef = useRef<string | null>(null);
   const suppressPointerUntilRef = useRef(0);
+
+  // Conecta el video con la lista de reproducción HLS. hls.js se descarga recién cuando esta página lo necesita.
+  useHls(videoRef, hlsUrl);
 
   useEffect(() => {
     const updateFullscreenState = () => {
@@ -164,7 +168,6 @@ export default function LaPeliculaPage() {
           onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
           onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
         >
-          <source src={videoUrl} type="video/mp4" />
           Tu navegador no pudo reproducir el video.
         </video>
 
