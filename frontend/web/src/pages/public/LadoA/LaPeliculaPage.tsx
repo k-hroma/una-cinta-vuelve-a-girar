@@ -7,7 +7,7 @@ import {
 } from 'react';
 import pausaIcon from '../../../assets/icons/nav-bar-pause.svg';
 import playIcon from '../../../assets/icons/nav-bar-play.svg';
-import { useHls } from '../../../hooks/useHls';
+import { useHls, type HlsErrorReason, type HlsStatus } from '../../../hooks/useHls';
 
 import '../../../styles/pages/public/LadoA/la-pelicula-page.css';
 
@@ -25,6 +25,30 @@ function formatTime(seconds: number) {
     .join(':');
 }
 
+/** Texto para el visitante cuando la película no se puede reproducir; null mientras todo va bien. */
+function describePlayback(status: HlsStatus, error: HlsErrorReason | null): string | null {
+  if (status === 'missing') {
+    return 'La película no está disponible por ahora.';
+  }
+
+  if (status === 'unsupported') {
+    return 'Este navegador no puede reproducir la película. Probá con otro.';
+  }
+
+  if (status !== 'error') return null;
+
+  switch (error) {
+    case 'network':
+      return 'No pudimos cargar la película. Revisá tu conexión y recargá la página.';
+    case 'media':
+      return 'La película no se pudo reproducir en este navegador. Probá con otro.';
+    case 'load':
+      return 'No pudimos cargar el reproductor. Recargá la página para intentar de nuevo.';
+    default:
+      return 'No pudimos reproducir la película. Recargá la página para intentar de nuevo.';
+  }
+}
+
 export default function LaPeliculaPage() {
   const playerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -39,8 +63,9 @@ export default function LaPeliculaPage() {
   const lastPointerTypeRef = useRef<string | null>(null);
   const suppressPointerUntilRef = useRef(0);
 
-  // Conecta el video con la lista de reproducción HLS. hls.js se descarga recién cuando esta página lo necesita.
-  useHls(videoRef, hlsUrl);
+  // Conecta el video con la lista de reproducción HLS: nativo en Safari, hls.js en el resto.
+  const { status, error } = useHls(videoRef, hlsUrl);
+  const playbackMessage = describePlayback(status, error);
 
   useEffect(() => {
     const updateFullscreenState = () => {
@@ -170,6 +195,12 @@ export default function LaPeliculaPage() {
         >
           Tu navegador no pudo reproducir el video.
         </video>
+
+        {playbackMessage && (
+          <p className="la-pelicula-page__message" role="alert">
+            {playbackMessage}
+          </p>
+        )}
 
         <div
           className="la-pelicula-page__controls-zone"
