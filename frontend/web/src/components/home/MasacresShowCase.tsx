@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { derivePath, getPublishedPages } from '../../config/navigation';
 
 
-import cuantasMasacres from '../../assets/img/foto-cuantas-masacres.png';
+import cuantasMasacres from '../../assets/img/foto-cuantas-masacres.jpg';
 import cuantasMasacresRetrato from '../../assets/img/foto-willi-tratamiento.png';
 
 import '../../styles/components/home/masacres-showcase.css';
@@ -58,8 +58,7 @@ export default function MasacresShowCase() {
             Cuántas masacres podemos filmar
           </h2>
           <Link
-            to={derivePath(masacresFilmar)}
-            className="masacres-showcase__link">
+            to={derivePath(masacresFilmar)} className="masacres-showcase__link">
             Ver +
           </Link>
         </div>
