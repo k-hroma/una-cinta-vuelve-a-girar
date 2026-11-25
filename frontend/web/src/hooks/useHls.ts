@@ -78,6 +78,21 @@ function attachNativeHls(
 }
 
 /**
+ * Valida que la URL sea un enlace HTTP/HTTPS bien formado.
+ * Evita que strings basura (ej. "dhaskdsad") pasen como "válidos" y dejen a hls.js
+ * colgado en un estado de carga infinita sin emitir un error fatal.
+ */
+function isValidHlsUrl(url: string | undefined): url is string {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Prepara el video para reproducir la película en HLS.
  * `src` es la lista de reproducción (.m3u8) del proveedor.
  * La librería se pide con `import('hls.js')` dentro del efecto: Vite la arma en un archivo aparte que solo se descarga en la página que usa este hook.
@@ -89,13 +104,15 @@ export function useHls(
   const [status, setStatus] = useState<HlsStatus>('idle');
   const [error, setError] = useState<HlsErrorReason | null>(null);
 
-  // Sin dirección no hay nada que conectar: se resuelve al dibujar, sin pasar por el efecto.
-  const playbackStatus: HlsStatus = src ? status : 'missing';
-  const playbackError = src ? error : null;
+  // Validamos la URL antes de decidir si hay algo que conectar.
+  // Sin dirección válida no hay nada que conectar: se resuelve al dibujar, sin pasar por el efecto.
+  const safeSrc = isValidHlsUrl(src) ? src : undefined;
+  const playbackStatus: HlsStatus = safeSrc ? status : 'missing';
+  const playbackError = safeSrc ? error : null;
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !src) return;
+    if (!video || !safeSrc) return;
 
     setError(null);
 
@@ -112,7 +129,7 @@ export function useHls(
     };
 
     const startNative = () => {
-      detachNative = attachNativeHls(video, src, handleNativeFailure);
+      detachNative = attachNativeHls(video, safeSrc, handleNativeFailure);
       setStatus('native');
     };
 
@@ -181,7 +198,7 @@ export function useHls(
           setStatus('error');
         });
 
-        instance.loadSource(src);
+        instance.loadSource(safeSrc);
         instance.attachMedia(video);
       })
       .catch((loadError: unknown) => {
@@ -196,7 +213,7 @@ export function useHls(
       detachNative?.();
       player?.destroy();
     };
-  }, [videoRef, src]);
+  }, [videoRef, safeSrc]);
 
   return { status: playbackStatus, error: playbackError };
 }
