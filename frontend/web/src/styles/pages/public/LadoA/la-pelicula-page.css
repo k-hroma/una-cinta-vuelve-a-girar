@@ -31,6 +31,21 @@
   background-color: var(--black);
 }
 
+.la-pelicula-page__message {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  margin: 0;
+  background-color: rgb(0 0 0 / 0.85);
+  color: var(--beige);
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
 .la-pelicula-page__controls-zone {
   position: absolute;
   right: 0;

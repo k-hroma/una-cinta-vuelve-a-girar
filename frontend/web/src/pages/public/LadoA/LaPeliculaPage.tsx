@@ -5,12 +5,16 @@ import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from 'react';
+import { useLoaderData } from 'react-router';
 import pausaIcon from '../../../assets/icons/nav-bar-pause.svg';
 import playIcon from '../../../assets/icons/nav-bar-play.svg';
+import { useHls, type HlsErrorReason, type HlsStatus } from '../../../hooks/useHls';
 
 import '../../../styles/pages/public/LadoA/la-pelicula-page.css';
+import { laPeliculaLoader } from './laPeliculaLoader';
 
-const videoUrl = import.meta.env.VITE_FILM_STREAM_URL;
+/** React Router ejecuta este loader al generar la página (y en el servidor de desarrollo): pide la lista de reproducción al CMS. */
+export const loader = laPeliculaLoader;
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) return '00:00:00';
@@ -24,9 +28,34 @@ function formatTime(seconds: number) {
     .join(':');
 }
 
+/** Texto para el visitante cuando la película no se puede reproducir; null mientras todo va bien. */
+function describePlayback(status: HlsStatus, error: HlsErrorReason | null): string | null {
+  if (status === 'missing') {
+    return 'La película no está disponible por ahora.';
+  }
+
+  if (status === 'unsupported') {
+    return 'Este navegador no puede reproducir la película. Probá con otro.';
+  }
+
+  if (status !== 'error') return null;
+
+  switch (error) {
+    case 'network':
+      return 'No pudimos cargar la película. Revisá tu conexión y recargá la página.';
+    case 'media':
+      return 'La película no se pudo reproducir en este navegador. Probá con otro.';
+    case 'load':
+      return 'No pudimos cargar el reproductor. Recargá la página para intentar de nuevo.';
+    default:
+      return 'No pudimos reproducir la película. Recargá la página para intentar de nuevo.';
+  }
+}
+
 export default function LaPeliculaPage() {
   const playerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { video } = useLoaderData<typeof loader>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [areControlsVisible, setAreControlsVisible] = useState(true);
@@ -37,6 +66,10 @@ export default function LaPeliculaPage() {
   const controlsTimeoutRef = useRef<number | undefined>(undefined);
   const lastPointerTypeRef = useRef<string | null>(null);
   const suppressPointerUntilRef = useRef(0);
+
+  // Conecta el video con la lista de reproducción HLS: nativo en Safari, hls.js en el resto.
+  const { status, error } = useHls(videoRef, video?.hlsUrl);
+  const playbackMessage = describePlayback(status, error);
 
   useEffect(() => {
     const updateFullscreenState = () => {
@@ -164,9 +197,14 @@ export default function LaPeliculaPage() {
           onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
           onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
         >
-          <source src={videoUrl} type="video/mp4" />
           Tu navegador no pudo reproducir el video.
         </video>
+
+        {playbackMessage && (
+          <p className="la-pelicula-page__message" role="alert">
+            {playbackMessage}
+          </p>
+        )}
 
         <div
           className="la-pelicula-page__controls-zone"
