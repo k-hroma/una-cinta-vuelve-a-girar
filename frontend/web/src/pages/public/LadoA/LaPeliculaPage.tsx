@@ -5,13 +5,16 @@ import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from 'react';
+import { useLoaderData } from 'react-router';
 import pausaIcon from '../../../assets/icons/nav-bar-pause.svg';
 import playIcon from '../../../assets/icons/nav-bar-play.svg';
 import { useHls, type HlsErrorReason, type HlsStatus } from '../../../hooks/useHls';
 
 import '../../../styles/pages/public/LadoA/la-pelicula-page.css';
+import { laPeliculaLoader } from './laPeliculaLoader';
 
-const hlsUrl = import.meta.env.VITE_FILM_HLS_URL;
+/** React Router ejecuta este loader al generar la página (y en el servidor de desarrollo): pide la lista de reproducción al CMS. */
+export const loader = laPeliculaLoader;
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) return '00:00:00';
@@ -52,6 +55,7 @@ function describePlayback(status: HlsStatus, error: HlsErrorReason | null): stri
 export default function LaPeliculaPage() {
   const playerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { video } = useLoaderData<typeof loader>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [areControlsVisible, setAreControlsVisible] = useState(true);
@@ -64,7 +68,7 @@ export default function LaPeliculaPage() {
   const suppressPointerUntilRef = useRef(0);
 
   // Conecta el video con la lista de reproducción HLS: nativo en Safari, hls.js en el resto.
-  const { status, error } = useHls(videoRef, hlsUrl);
+  const { status, error } = useHls(videoRef, video?.hlsUrl);
   const playbackMessage = describePlayback(status, error);
 
   useEffect(() => {
