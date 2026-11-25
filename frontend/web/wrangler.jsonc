@@ -1,0 +1,8 @@
+{
+  "name": "una-cinta-vuelve-a-girar",
+  "compatibility_date": "2026-11-25",
+  "assets": {
+    "directory": "./build/client",
+    "not_found_handling": "single-page-application"
+  }
+}
