@@ -3,7 +3,7 @@
 Sitio web del proyecto «Una cinta vuelve a girar», sobre la película «Budge pregunta, seguirá preguntando» (1987, Argentina). El contenido editorial se carga en Sanity Studio y el sitio se publica como HTML estático en Cloudflare Workers.
 
 - Sitio publicado: https://una-cinta-vuelve-a-girar.khroma87.workers.dev
-- Studio: se publica con `npm run deploy` desde `studio/`; la dirección queda en `https://<nombre>.sanity.studio` y figura en Sanity Manage → Studios.
+- Studio: https://una-cinta-vuelve-a-girar.sanity.studio (pide iniciar sesión con una cuenta del proyecto).
 
 ## Estado actual
 
@@ -143,7 +143,7 @@ Reglas que conviene respetar:
 
 ## Publicar contenido y rebuild
 
-1. Se edita en el Studio y se apreta **Publish**.
+1. Se edita en el Studio (el local o el hospedado) y se apreta **Publish**.
 2. Sanity manda un webhook (solo para documentos `pagina` y `video`, y solo cuando se publica, no en cada cambio de borrador).
 3. El webhook llama al deploy hook de Cloudflare.
 4. Cloudflare reconstruye y publica. Tarda entre uno y cuatro minutos.
@@ -161,6 +161,13 @@ Los borradores no disparan nada. Si un cambio no aparece, el orden para revisar 
 - Variables de build: las tres `VITE_SANITY_*`.
 - Carpeta publicada: `build/client`, declarada en `wrangler.jsonc`.
 - Manejo de direcciones inexistentes: `not_found_handling: "404-page"`, con el `404.html` que genera el build.
+
+## Studio hospedado
+
+- Dirección: https://una-cinta-vuelve-a-girar.sanity.studio
+- Se publica con `npm run deploy` desde `studio/`. Cada vez que cambia un esquema hay que volver a desplegarlo.
+- El acceso requiere una cuenta con rol en el proyecto. Sin sesión iniciada, la dirección redirige a sanity.io.
+- No hace falta ningún permiso extra de CORS: al estar hospedado en Sanity, el dominio queda habilitado.
 
 ## Pruebas y verificadores
 
