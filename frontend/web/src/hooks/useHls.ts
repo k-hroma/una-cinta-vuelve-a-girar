@@ -89,19 +89,13 @@ export function useHls(
   const [status, setStatus] = useState<HlsStatus>('idle');
   const [error, setError] = useState<HlsErrorReason | null>(null);
 
+  // Sin dirección no hay nada que conectar: se resuelve al dibujar, sin pasar por el efecto.
+  const playbackStatus: HlsStatus = src ? status : 'missing';
+  const playbackError = src ? error : null;
+
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) {
-      setStatus('idle');
-      setError(null);
-      return;
-    }
-
-    if (!src) {
-      setStatus('missing');
-      setError(null);
-      return;
-    }
+    if (!video || !src) return;
 
     setError(null);
 
@@ -204,5 +198,5 @@ export function useHls(
     };
   }, [videoRef, src]);
 
-  return { status, error };
+  return { status: playbackStatus, error: playbackError };
 }
