@@ -110,8 +110,9 @@ async function checkPage(path: string): Promise<Issue[]> {
   if (one('og:url') && one('og:url') !== expectedUrl) {
     issues.push({ level: 'error', message: `og:url debería ser ${expectedUrl} y es ${one('og:url')}` });
   }
-  if (meta.get('robots')?.some((value) => value.includes('noindex'))) {
-    issues.push({ level: 'error', message: 'tiene noindex: Google no la va a indexar' });
+  // Mientras el sitio no se lanza, todas las páginas tienen que llevar noindex (esta comprobación se invierte el día del lanzamiento).
+  if (!meta.get('robots')?.some((value) => value.includes('noindex'))) {
+    issues.push({ level: 'error', message: 'falta noindex (el sitio todavía no está lanzado)' });
   }
 
   const image = one('og:image');
@@ -126,6 +127,19 @@ async function checkPage(path: string): Promise<Issue[]> {
   return issues;
 }
 
+async function checkRobotsTxt(): Promise<Issue[]> {
+  const file = join(BUILD_DIR, 'robots.txt');
+  if (!existsSync(file)) {
+    return [{ level: 'error', message: `no existe ${file} (va en public/robots.txt)` }];
+  }
+
+  // robots.txt no puede bloquear el sitio: si lo hiciera, Google no llegaría a leer el noindex de las páginas.
+  if (/^Disallow:\s*\/\s*$/m.test(await readFile(file, 'utf-8'))) {
+    return [{ level: 'error', message: 'robots.txt bloquea todo el sitio (Disallow: /): Google no podría leer el noindex' }];
+  }
+  return [];
+}
+
 if (!existsSync(BUILD_DIR)) {
   console.error(`No existe ${BUILD_DIR}. Corré primero: npm run build`);
   process.exit(1);
@@ -135,8 +149,8 @@ let errors = 0;
 let warnings = 0;
 const pages = getPublishedPages().map((page) => derivePath(page));
 
-for (const path of pages) {
-  const issues = await checkPage(path);
+for (const path of [...pages, '/robots.txt']) {
+  const issues = path === '/robots.txt' ? await checkRobotsTxt() : await checkPage(path);
   const failed = issues.some((issue) => issue.level === 'error');
   console.log(`${failed ? '✗' : issues.length > 0 ? '!' : '✓'} ${path}`);
   for (const issue of issues) {
@@ -146,5 +160,5 @@ for (const path of pages) {
   }
 }
 
-console.log(`\n${pages.length} páginas revisadas: ${errors} errores, ${warnings} avisos.`);
+console.log(`\n${pages.length} páginas y robots.txt revisados: ${errors} errores, ${warnings} avisos.`);
 process.exit(errors > 0 ? 1 : 0);
