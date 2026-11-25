@@ -1,6 +1,10 @@
 import ActionLink from '../../components/ui/ActionLink';
 import Eyebrow from '../../components/ui/Eyebrow';
+import { buildNotFoundMeta } from '../../seo/buildPageMeta';
 import '../../styles/pages/public/not-found-page.css';
+
+// Esta página no pasa por PagesLayout (que carga el contenido del CMS): sus etiquetas no dependen de él.
+export const meta = buildNotFoundMeta;
 
 export default function NotFoundPage() {
   return (

@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
-import { createFakePaginasService } from '../../services/fake/fakePaginasService';
-import type { PaginasService } from '../../services';
-import { createHomeLoader } from './homeLoader';
+import { createFakePaginasService } from '../services/fake/fakePaginasService';
+import type { PaginasService } from '../services';
+import { createPagesLoader } from './pagesLoader';
 
-describe('createHomeLoader', () => {
+describe('createPagesLoader', () => {
   it('entrega las páginas que devuelve el servicio', async () => {
-    const homeLoader = createHomeLoader(createFakePaginasService());
+    const pagesLoader = createPagesLoader(createFakePaginasService());
 
-    const { pages } = await homeLoader();
+    const { pages } = await pagesLoader();
 
     expect(pages['volver-a-ver'].summary).toBe('Resumen de prueba de volver-a-ver');
     expect(pages['vigilar'].tags).toEqual(['fotos', 'videos']);
@@ -21,6 +21,6 @@ describe('createHomeLoader', () => {
       },
     };
 
-    await expect(createHomeLoader(failing)()).rejects.toThrow('sin conexión con el CMS');
+    await expect(createPagesLoader(failing)()).rejects.toThrow('sin conexión con el CMS');
   });
 });

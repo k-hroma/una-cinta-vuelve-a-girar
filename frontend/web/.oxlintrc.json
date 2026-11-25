@@ -22,7 +22,7 @@
   },
   "overrides": [
     {
-      "files": ["src/router/router.config.tsx"],
+      "files": ["src/root.tsx", "src/layout/PagesLayout.tsx", "src/pages/**"],
       "rules": {
         "react/only-export-components": "off"
       }
