@@ -78,7 +78,7 @@ export const pagina = defineType({
           if (!tieneTexto(bloques)) {
             return 'La descripción de El Proyecto es obligatoria en la Home.'
           }
-          if (bloques.length > 1) {
+          if (bloques.length > 2) {
             return 'Escribir la descripción como un solo párrafo.'
           }
           return true
