@@ -74,7 +74,7 @@ export const pageModels = [
   },
   {
     id: 'volver-a-ver',
-    title: 'Volver a ver, escuchar, preguntar',
+    title: 'Volver a ver, volver a escuchar, volver a preguntar',
     section: 'a',
     slug: 'volver-a-ver-escuchar-preguntar',
     publicationStatus: 'published',
@@ -92,7 +92,7 @@ export const pageModels = [
   },
   {
     id: 'mario-celestino',
-    title: 'Mario Celestino, realizador',
+    title: 'El realizador',
     section: 'a',
     slug: 'mario-celestino-realizador',
     publicationStatus: 'published',

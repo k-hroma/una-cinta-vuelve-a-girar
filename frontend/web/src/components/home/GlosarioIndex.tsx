@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
 import { derivePath, getPublishedPages } from '../../config/navigation';
 
+import type { PagesById } from '../../types/pagina';
+
 import '../../styles/components/home/glosario-index-teaser.css';
 
 const WORD_ROWS = [
@@ -12,7 +14,11 @@ const WORD_ROWS = [
   'Perpetrar Sobreviviente Testigo',
 ];
 
-export default function GlosarioIndex() {
+type GlosarioIndexProps = {
+  pages: PagesById;
+};
+
+export default function GlosarioIndex({ pages }: GlosarioIndexProps) {
   const glosarioPage = getPublishedPages().find(
     (page) => page.id === 'glosario',
   );
@@ -46,8 +52,7 @@ export default function GlosarioIndex() {
         </div>
 
         <p className="glosario-teaser__description">
-          palabras específicas, términos legales o nombres claves
-          relacionados con La Masacre de Ingeniero Budge
+          {pages.glosario.summary}
         </p>
       </div>
     </section>

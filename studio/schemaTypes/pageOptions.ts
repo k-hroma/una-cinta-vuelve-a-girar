@@ -10,9 +10,9 @@
 export const pageOptions: {value: string; title: string}[] = [
   {value: 'home', title: 'Home'},
   {value: 'la-pelicula', title: 'Lado A · La película'},
-  {value: 'volver-a-ver', title: 'Lado A · Volver a ver, escuchar, preguntar'},
+  {value: 'volver-a-ver', title: 'Lado A · Volver a ver, volver a escuchar, volver a preguntar'},
   {value: 'la-cinta-y-el-soporte', title: 'Lado A · La cinta y el soporte'},
-  {value: 'mario-celestino', title: 'Lado A · Mario Celestino, realizador'},
+  {value: 'mario-celestino', title: 'Lado A · El realizador'},
   {value: 'glosario', title: 'Lado A · Glosario'},
   {value: 'cuantas-masacres', title: 'Lado A · Cuántas masacres'},
   {value: 'con-el-cuerpo', title: 'Lado A · Con el cuerpo'},
