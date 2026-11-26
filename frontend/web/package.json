@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "npm run typecheck && react-router build && node scripts/copy-404.ts",
+    "build": "npm run typecheck && react-router build && node scripts/copy-404.ts && node scripts/build-sitemap.ts",
     "lint": "oxlint",
     "typecheck": "react-router typegen && tsc -b --pretty false",
     "check": "npm run lint && npm run typecheck",
