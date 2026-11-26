@@ -2,7 +2,8 @@
 
 Sitio web del proyecto «Una cinta vuelve a girar», sobre la película «Budge pregunta, seguirá preguntando» (1987, Argentina). El contenido editorial se carga en Sanity Studio y el sitio se publica como HTML estático en Cloudflare Workers.
 
-- Sitio publicado: https://una-cinta-vuelve-a-girar.khroma87.workers.dev
+- Sitio publicado: https://unacintavuelveagirar.ar
+- Worker (dirección provisoria de Cloudflare): https://una-cinta-vuelve-a-girar.khroma87.workers.dev
 - Studio: https://una-cinta-vuelve-a-girar.sanity.studio (pide iniciar sesión con una cuenta del proyecto).
 
 ## Estado actual
@@ -10,9 +11,10 @@ Sitio web del proyecto «Una cinta vuelve a girar», sobre la película «Budge 
 Funciona de punta a punta:
 
 - Las 16 páginas del sitio se generan como HTML estático, con su título, descripción, canónica y etiquetas para compartir.
+- El dominio `unacintavuelveagirar.ar` está registrado, con el DNS en Cloudflare, el sitio servido por HTTPS y `www` redirigido a la raíz.
 - El contenido de las páginas (resumen, tags, texto de El Proyecto, SEO) viene de Sanity.
 - La película se reproduce en HLS: nativo en Safari moderno y con `hls.js` en el resto, cargado solo en esa página.
-- El sitio responde 404 en las direcciones que no existen.
+- El sitio responde 404 en las direcciones que no existen, y publica un sitemap con las 16 direcciones.
 - Publicar en Sanity reconstruye y publica el sitio solo, en uno a cuatro minutos.
 - Cada push a `main` reconstruye y publica el sitio.
 
@@ -21,7 +23,7 @@ Falta:
 - El diseño de las páginas y sus textos definitivos. Hoy las páginas interiores muestran una pantalla de relleno («Esta parte todavía está girando»).
 - El modelado del cuerpo de cada página en Sanity, que depende de ese diseño.
 - La parte de operación: roles para editores, guía de uso, CI, backup del contenido y monitoreo.
-- El lanzamiento: dominio `.ar`, sitemap y quitar el `noindex` provisorio.
+- El lanzamiento: quitar el `noindex` provisorio y el checklist final.
 
 ## Stack
 
@@ -30,7 +32,7 @@ Falta:
 - Sanity 6 para el Studio y `@sanity/client` 8 para leer el contenido.
 - `hls.js` 1.7 para el video HLS.
 - Vitest 5 para los tests y oxlint para el lint.
-- Cloudflare Workers con assets estáticos para publicar.
+- Cloudflare Workers con assets estáticos para publicar, y Cloudflare para el DNS.
 
 ## Estructura del repositorio
 
@@ -44,8 +46,8 @@ studio/                  Sanity Studio (esquemas y configuración)
 
 Archivos importantes del sitio:
 
-- `frontend/web/src/config/navigation.ts`: la fuente de verdad de qué páginas existen, cómo se llaman y en qué dirección viven. De acá salen las rutas y el menú.
-- `frontend/web/src/config/site.ts`: el nombre del sitio y la dirección definitiva (`SITE_URL`), que se usa en las URL canónicas aunque el sitio esté publicado en otra dirección.
+- `frontend/web/src/config/navigation.ts`: la fuente de verdad de qué páginas existen, cómo se llaman y en qué dirección viven. De acá salen las rutas, el menú y el sitemap.
+- `frontend/web/src/config/site.ts`: el nombre del sitio y la dirección definitiva (`SITE_URL`), que se usa en las URL canónicas y en el sitemap.
 - `frontend/web/src/routes.ts`: la lista de rutas de React Router, derivada de `navigation.ts`. Si se publica una página nueva, TypeScript obliga a registrar su archivo.
 - `frontend/web/src/root.tsx`: el documento HTML (head, body), los estilos globales y el favicon.
 - `frontend/web/src/layout/PagesLayout.tsx`: envuelve todas las páginas, carga el contenido del CMS una vez por página, arma las etiquetas SEO y atrapa los errores.
@@ -53,8 +55,9 @@ Archivos importantes del sitio:
 - `frontend/web/src/types/`: los tipos propios del sitio (`pagina.ts`, `video.ts`).
 - `frontend/web/src/seo/buildPageMeta.ts`: arma el título, la descripción, la canónica y las etiquetas de Open Graph de cada página.
 - `frontend/web/src/hooks/useHls.ts`: conecta el reproductor con la lista HLS, elige el camino nativo o `hls.js` y maneja los errores.
-- `frontend/web/scripts/check-seo.ts`, `check-hls-chunk.ts` y `copy-404.ts`: los verificadores del build y la copia que genera el `404.html`.
+- `frontend/web/scripts/check-seo.ts`, `check-hls-chunk.ts`, `copy-404.ts` y `build-sitemap.ts`: los verificadores y las dos tareas de build (página 404 y sitemap).
 - `frontend/web/wrangler.jsonc`: la configuración del Worker que publica el sitio.
+- `frontend/web/public/robots.txt`: permite el rastreo y apunta al sitemap.
 
 Archivos importantes del Studio:
 
@@ -69,6 +72,7 @@ Archivos importantes del Studio:
 - **El video es la excepción.** La página de La película pide la lista HLS y, en los navegadores que no reproducen HLS solos, descarga `hls.js` con una importación dinámica. Ese archivo no viaja al resto del sitio.
 - **Los errores de contenido se ven dentro del layout.** Si el CMS no responde, se muestra la pantalla de error con el menú y el botón de reintentar, no una página en blanco.
 - **Las direcciones inexistentes responden 404 de verdad.** El build copia la página de respaldo a `404.html` y Workers la devuelve con estado 404.
+- **El sitemap se genera solo.** El build escribe `sitemap.xml` con las páginas publicadas de `navigation.ts`, así no se desincroniza cuando se agrega o se quita una página.
 
 ## Puesta en marcha local
 
@@ -113,7 +117,7 @@ No hay secretos hoy. Si alguna vez hace falta un token de lectura, va como secre
 En `frontend/web`:
 
 - `npm run dev`: servidor de desarrollo.
-- `npm run build`: verifica tipos, genera el sitio y crea el `404.html`.
+- `npm run build`: verifica tipos, genera el sitio, crea el `404.html` y el `sitemap.xml`.
 - `npm run preview`: sirve el resultado del build en http://127.0.0.1:4173.
 - `npm test`: los tests que no usan red.
 - `npm run test:cms`: el test que consulta el CMS real. Necesita `.env.local` y conexión.
@@ -151,6 +155,14 @@ Reglas que conviene respetar:
 
 Los borradores no disparan nada. Si un cambio no aparece, el orden para revisar es: intentos del webhook en Sanity Manage, fecha del último disparo en Deploy Hooks, y estado del build en Deployments.
 
+## Dominio y DNS
+
+- Dominio: `unacintavuelveagirar.ar`, registrado en nic.ar el 24/11/2026; vence el 24/11/2027 y hay que renovarlo cada año.
+- Nameservers: `eve.ns.cloudflare.com` y `jasper.ns.cloudflare.com`, delegados desde nic.ar. La zona está activa en Cloudflare.
+- El dominio personalizado está conectado al Worker (apex), con certificado de Google Trust Services emitido por Cloudflare.
+- `www.unacintavuelveagirar.ar` tiene un CNAME proxeado y una regla de redirección: `301` a la raíz, conservando la ruta y la cadena de consulta.
+- **Always Use HTTPS** está activo: todo pedido por `http://` salta a `https://`.
+
 ## Deploy
 
 - Plataforma: Cloudflare Workers con assets estáticos.
@@ -161,6 +173,7 @@ Los borradores no disparan nada. Si un cambio no aparece, el orden para revisar 
 - Variables de build: las tres `VITE_SANITY_*`.
 - Carpeta publicada: `build/client`, declarada en `wrangler.jsonc`.
 - Manejo de direcciones inexistentes: `not_found_handling: "404-page"`, con el `404.html` que genera el build.
+- Sitemap: `https://unacintavuelveagirar.ar/sitemap.xml`, generado en el build y referenciado desde `robots.txt`.
 
 ## Studio hospedado
 
@@ -202,10 +215,9 @@ Operación (fase 8 del plan, pendiente):
 
 Lanzamiento (fase 9 del plan, pendiente):
 
-- Agregar la zona del dominio `.ar` en Cloudflare y delegar los nameservers desde nic.ar.
-- Dominio personalizado, HTTPS y redirección de `www`.
-- Sitemap, revisar canónicas y quitar el `noindex` de todas las páginas. Ese cambio obliga a invertir la comprobación de `npm run check:seo`.
-- Checklist final de lanzamiento.
+- Quitar el `noindex` de todas las páginas y actualizar la comprobación de `npm run check:seo` para que exija que ya no esté.
+- Revisar el sitemap una vez levantado el `noindex` y darlo de alta en Google Search Console.
+- Checklist final de lanzamiento: dominio, HTTPS, `www`, 404, rendimiento y contenido revisado.
 
 Rendimiento y detalles técnicos:
 
@@ -213,11 +225,11 @@ Rendimiento y detalles técnicos:
 - El hero de la home es una imagen de fondo en CSS: un teléfono descarga los mismos 400 KB aunque la muestre a 390 px. Lo ideal es servirla con `srcset` en varios tamaños.
 - El video no tiene imagen de portada: hasta que se aprieta play se ve negro.
 - El build emite un archivo `queries-*.js` con el cliente de Sanity que nunca se descarga, porque `RouteErrorPage` importa desde `services/index`. Se puede eliminar importando solo `services/errors`.
-- `robots.txt` no incluye sitemap todavía.
 
 ## Notas
 
-- La dirección canónica del sitio es `https://unacintavuelveagirar.ar`, aunque hoy el sitio esté publicado en `workers.dev`. Está en `src/config/site.ts`.
-- Todas las páginas llevan `noindex` mientras el sitio no esté lanzado. Es provisorio y se quita en la fase 9.
+- La dirección canónica del sitio es `https://unacintavuelveagirar.ar` y coincide con el dominio publicado. Está en `src/config/site.ts` y en el sitemap.
+- Todas las páginas llevan `noindex` mientras el sitio no esté lanzado. Es provisorio y se quita en la fase 9; hasta entonces, el sitemap lista direcciones que piden no ser indexadas.
 - El sitio es estático: un cambio de código necesita un push; un cambio de contenido necesita publicar en el Studio.
 - El contenido publicado es de lectura pública; los borradores no.
+- La zona DNS y el Worker viven en la cuenta de Cloudflare del desarrollo. Cuando el proyecto se entregue, hay que definir si esa cuenta pasa al cliente o se comparte el acceso.
