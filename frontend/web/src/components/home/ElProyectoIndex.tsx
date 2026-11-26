@@ -30,8 +30,7 @@ export default function ElProyectoIndex({
           </p>
         ))}
         <div className='credits-el-proyecto-index'>
-          <p>— Irene Barco</p>
-          <p>Directora de la tesis de Investigación...</p>
+          <p>— Victoria Irene Barco Sollazzo</p>
         </div>
       </div>
     </section>
