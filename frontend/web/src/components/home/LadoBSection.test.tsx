@@ -24,13 +24,13 @@ describe('LadoBSection', () => {
         `<p class="lado-b-section__item-description">Resumen de prueba de ${id}</p>`,
       );
     }
-    expect(html.match(/<p class="lado-b-section__item-tags">\[ fotos, videos, etc\. \]<\/p>/g)).toHaveLength(8);
+    expect(html.match(/<p class="lado-b-section__item-tags">\[ fotos, videos, etc\. \]<\/p>/g)).toHaveLength(10);
   });
 
   it('une todos los tags de una tarjeta', () => {
     const pages = createFakePaginas();
-    pages['organizarse'] = {
-      ...pages['organizarse'],
+    pages['testigxs'] = {
+      ...pages['testigxs'],
       tags: ['fotos', 'textos', 'documentos'],
     };
 
@@ -46,8 +46,8 @@ describe('LadoBSection', () => {
 
     const html = render(pages);
 
-    expect(html.match(/lado-b-section__item-tags/g)).toHaveLength(7);
-    expect(html.match(/lado-b-section__item-description/g)).toHaveLength(7);
+    expect(html.match(/lado-b-section__item-tags/g)).toHaveLength(9);
+    expect(html.match(/lado-b-section__item-description/g)).toHaveLength(9);
     expect(html).not.toContain('Resumen de prueba de la-prensa');
   });
 

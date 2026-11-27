@@ -1,5 +1,5 @@
 import ConstructionPage from '../ConstructionPage';
 
-export default function ConElCuerpoPage() {
+export default function TestigxsPage() {
   return <ConstructionPage />;
 }

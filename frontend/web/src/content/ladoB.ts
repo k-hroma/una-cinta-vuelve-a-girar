@@ -8,12 +8,14 @@ export type LadoBPageId = Extract<
 // Orden en que se muestran las tarjetas del Lado B en la home (decisión de diseño, no del CMS).
 // El texto y los tags de cada tarjeta ya no están acá: vienen del CMS (ver services/).
 export const ladoBOrder = [
-  'las-madres',
+  'ingeniero-budge',
+  'la-amistad-en-una-esquina',
+  'los-hechos',
+  'testigxs',
+  'vigilar',
+  'las-pruebas',
   'la-prensa',
   'los-chicos-muertos',
-  'las-pericias',
-  'los-hechos',
-  'lo-que-escucharon',
-  'vigilar',
-  'organizarse',
+  'las-madres',
+  'la-cav',
 ] as const satisfies readonly LadoBPageId[];

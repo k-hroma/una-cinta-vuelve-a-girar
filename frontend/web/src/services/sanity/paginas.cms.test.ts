@@ -15,20 +15,25 @@ describe.skipIf(import.meta.env.MODE !== 'cms')('CMS real (Sanity)', () => {
       // Siempre están todas las páginas publicadas de navigation.ts.
       expect(Object.keys(pages).sort()).toEqual([...publishedPageIds].sort());
 
-      // Contenido cargado a mano en la prueba mínima (pasos 14 a 20).
+      // Páginas que hoy tienen contenido en el CMS (todas menos la home).
       const conContenido = [
         'la-pelicula',
         'volver-a-ver',
         'la-cinta-y-el-soporte',
         'mario-celestino',
+        'glosario',
+        'masacres-filmadas',
+        'masacres-nombradas',
+        'ingeniero-budge',
+        'la-amistad-en-una-esquina',
         'los-hechos',
-        'lo-que-escucharon',
+        'testigxs',
         'vigilar',
-        'organizarse',
-        'las-pericias',
+        'las-pruebas',
         'la-prensa',
-        'las-madres',
         'los-chicos-muertos',
+        'las-madres',
+        'la-cav',
       ] as const;
       for (const id of conContenido) {
         expect(pages[id].isPublished, `${id} debería estar publicada`).toBe(true);
@@ -46,7 +51,7 @@ describe.skipIf(import.meta.env.MODE !== 'cms')('CMS real (Sanity)', () => {
 
       // Los tags del Lado B llegan como lista.
       expect(pages['vigilar'].tags).toEqual(['fotos', 'videos']);
-      expect(pages['organizarse'].tags).toEqual(['fotos', 'textos', 'documentos']);
+      expect(pages['testigxs'].tags).toEqual(['fotos', 'videos', 'documentos']);
 
       const publicadas = Object.values(pages).filter((page) => page.isPublished);
       console.info(`Páginas con documento publicado en el CMS: ${publicadas.length}`);

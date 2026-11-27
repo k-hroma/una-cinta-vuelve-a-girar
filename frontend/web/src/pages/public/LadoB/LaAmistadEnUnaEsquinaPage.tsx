@@ -1,5 +1,5 @@
 import ConstructionPage from '../ConstructionPage';
 
-export default function LasPericiasPage() {
+export default function LaAmistadEnUnaEsquinaPage() {
   return <ConstructionPage />;
 }

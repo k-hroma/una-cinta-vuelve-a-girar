@@ -10,13 +10,13 @@ import '../../styles/components/home/masacres-showcase.css';
 
 export default function MasacresShowCase() {
   const masacresNombrar = getPublishedPages().find(
-    (page) => page.id === 'cuantas-masacres',
+    (page) => page.id === 'masacres-nombradas',
   );
 
   if (!masacresNombrar) return null;
 
   const masacresFilmar = getPublishedPages().find(
-    (page) => page.id === 'cuantas-masacres',
+    (page) => page.id === 'masacres-filmadas',
   );
 
   if (!masacresFilmar) return null;

@@ -5,14 +5,16 @@ import type { PaginasService } from '../paginasService';
 
 /** Páginas del Lado B: llevan resumen y tags. */
 const paginasLadoB: PageId[] = [
+  'ingeniero-budge',
+  'la-amistad-en-una-esquina',
   'los-hechos',
-  'lo-que-escucharon',
+  'testigxs',
   'vigilar',
-  'organizarse',
-  'las-pericias',
+  'las-pruebas',
   'la-prensa',
-  'las-madres',
   'los-chicos-muertos',
+  'las-madres',
+  'la-cav',
 ];
 
 /** Páginas de "La película" que aparecen como tarjetas en el índice: llevan resumen. */
@@ -22,7 +24,7 @@ const paginasIndiceLaPelicula: PageId[] = [
   'mario-celestino',
 ];
 
-/** Datos de ejemplo: las 11 páginas que muestran su resumen en la home y la propia home tienen contenido; el resto queda vacío, como en el CMS real. */
+/** Datos de ejemplo: las 13 páginas que muestran su resumen en la home y la propia home tienen contenido; el resto queda vacío, como en el CMS real. */
 export function createFakePaginas(): PagesById {
   const pages = createEmptyPages();
 

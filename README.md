@@ -10,17 +10,17 @@ Sitio web del proyecto «Una cinta vuelve a girar», sobre la película «Budge 
 
 Funciona de punta a punta:
 
-- Las 16 páginas del sitio se generan como HTML estático, con su título, descripción, canónica y etiquetas para compartir.
+- Las 18 páginas del sitio se generan como HTML estático, con su título, descripción, canónica y etiquetas para compartir.
 - El dominio `unacintavuelveagirar.ar` está registrado, con el DNS en Cloudflare, el sitio servido por HTTPS y `www` redirigido a la raíz.
 - El contenido de las páginas (resumen, tags, texto de El Proyecto, SEO) viene de Sanity.
 - La película se reproduce en HLS: nativo en Safari moderno y con `hls.js` en el resto, cargado solo en esa página.
-- El sitio responde 404 en las direcciones que no existen, y publica un sitemap con las 16 direcciones.
+- El sitio responde 404 en las direcciones que no existen, y publica un sitemap con las 18 direcciones.
 - Publicar en Sanity reconstruye y publica el sitio solo, en uno a cuatro minutos.
 - Cada push a `main` reconstruye y publica el sitio.
 
 Falta:
 
-- El diseño de las páginas y sus textos definitivos. Hoy las páginas interiores muestran una pantalla de relleno («Esta parte todavía está girando»).
+- El diseño de las páginas y sus textos definitivos. Hoy las páginas interiores muestran una pantalla de relleno («Esta cinta todavía no está girando»).
 - El modelado del cuerpo de cada página en Sanity, que depende de ese diseño.
 - La parte de operación: roles para editores, guía de uso, CI, backup del contenido y monitoreo.
 - El lanzamiento: quitar el `noindex` provisorio y el checklist final.
@@ -184,7 +184,7 @@ Los borradores no disparan nada. Si un cambio no aparece, el orden para revisar 
 
 ## Pruebas y verificadores
 
-- `npm test` corre 98 tests y omite 1 (el que consulta el CMS real).
+- `npm test` corre 100 tests y omite 1 (el que consulta el CMS real).
 - `npm run test:cms` corre ese test contra Sanity.
 - `npm run check:seo` revisa, sobre el HTML generado, que cada página tenga un solo título, una descripción de hasta 160 caracteres, la canónica correcta, las etiquetas de Open Graph y la tarjeta de Twitter, y que hoy todas lleven `noindex`.
 - `npm run check:hls` revisa que `hls.js` esté en un solo archivo, que solo lo pida el código de La película y que ninguna página HTML lo precargue.

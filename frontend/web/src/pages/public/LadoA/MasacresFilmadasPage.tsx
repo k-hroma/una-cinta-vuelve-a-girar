@@ -1,5 +1,5 @@
 import ConstructionPage from '../ConstructionPage';
 
-export default function LoQueEscucharonPage() {
+export default function MasacresFilmadasPage() {
   return <ConstructionPage />;
 }

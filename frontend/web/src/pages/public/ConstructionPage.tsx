@@ -59,7 +59,7 @@ export default function ConstructionPage() {
               id="construction-title"
               className="construction-page__title"
             >
-              Esta parte todavía está girando.
+              Esta cinta todavía no está girando.
             </h1>
 
             <p className="construction-page__description">
